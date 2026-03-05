@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   FiArrowRight,
+  FiDownload,
   FiGithub,
   FiMail,
   FiPhone,
@@ -32,9 +34,35 @@ const heroHighlights = [
   { label: "Open Source", value: "Active", icon: <FiGithub /> },
 ];
 
+const primaryButtonClass =
+  "inline-flex w-full items-center justify-center gap-2 rounded-full border border-indigo-200/35 bg-gradient-to-r from-indigo-400/28 via-violet-400/22 to-slate-300/18 px-5 py-2.5 text-sm font-medium text-slate-100 transition hover:from-indigo-400/38 hover:to-slate-300/28 sm:w-auto";
+
+const secondaryButtonClass =
+  "inline-flex w-full items-center justify-center rounded-full border border-white/18 bg-white/7 px-5 py-2.5 text-sm font-medium text-slate-100 transition hover:bg-white/12 sm:w-auto";
+
+const accentLinkClass =
+  "inline-flex items-center gap-1.5 text-sm text-indigo-200/90 transition hover:text-violet-100";
+
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const shouldShowIntro = searchParams.get("intro") === "1";
+
+  const [showIntro, setShowIntro] = useState(shouldShowIntro);
   const [subtitleIndex, setSubtitleIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setShowIntro(shouldShowIntro);
+  }, [shouldShowIntro]);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -43,26 +71,45 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const updateDeviceSize = () => setIsMobile(mediaQuery.matches);
+    updateDeviceSize();
+    mediaQuery.addEventListener("change", updateDeviceSize);
+    return () => mediaQuery.removeEventListener("change", updateDeviceSize);
+  }, []);
+
   const heroParticles = useMemo(
     () =>
-      Array.from({ length: 16 }, (_, idx) => ({
+      Array.from({ length: isMobile ? 8 : 16 }, (_, idx) => ({
         id: idx,
-        top: `${12 + (idx % 4) * 20}%`,
-        left: `${8 + (idx * 11) % 86}%`,
+        top: `${
+          (isMobile ? [8, 16, 84, 92] : [10, 24, 74, 88])[idx % 4]
+        }%`,
+        left: `${6 + ((idx * 13) % 88)}%`,
         delay: idx * 0.12,
       })),
-    []
+    [isMobile]
   );
 
   if (showIntro) {
-    return <Intro onFinish={() => setShowIntro(false)} />;
+    return (
+      <Intro
+        onFinish={() => {
+          setShowIntro(false);
+          if (shouldShowIntro) {
+            router.replace("/", { scroll: false });
+          }
+        }}
+      />
+    );
   }
 
   return (
-    <div className="pb-24 pt-28 sm:pt-32">
-      <SectionContainer className="pb-12 pt-8 sm:pt-12">
-        <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-slate-950/40 p-6 backdrop-blur-xl sm:p-8 lg:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_24%,rgba(99,102,241,0.3),transparent_36%),radial-gradient(circle_at_80%_26%,rgba(168,85,247,0.26),transparent_34%)]" />
+    <div className="pb-16 pt-24 sm:pb-24 sm:pt-32">
+      <SectionContainer className="pb-8 pt-6 sm:pb-12 sm:pt-12">
+        <div className="relative overflow-hidden rounded-2xl border border-white/14 bg-slate-900/55 p-4 backdrop-blur-xl sm:rounded-3xl sm:p-8 lg:p-10">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_24%,rgba(129,140,248,0.2),transparent_36%),radial-gradient(circle_at_80%_26%,rgba(167,139,250,0.16),transparent_34%)]" />
           {heroParticles.map((particle) => (
             <motion.span
               key={particle.id}
@@ -73,7 +120,7 @@ export default function Home() {
                 ease: "easeInOut",
                 delay: particle.delay,
               }}
-              className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-indigo-200/80"
+              className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-indigo-200/60"
               style={{ top: particle.top, left: particle.left }}
             />
           ))}
@@ -82,26 +129,26 @@ export default function Home() {
             variants={staggerContainer}
             initial="hidden"
             animate="show"
-            className="relative z-10 grid gap-10 lg:grid-cols-[1.25fr_0.75fr]"
+            className="relative z-10 grid gap-6 sm:gap-10 lg:grid-cols-[1.25fr_0.75fr]"
           >
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <motion.p
                 variants={fadeInUp}
-                className="inline-flex rounded-full border border-indigo-300/30 bg-indigo-500/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-indigo-100/90"
+                className="inline-flex rounded-full border border-indigo-200/25 bg-indigo-300/12 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-slate-100/90"
               >
-                Portfolio 2026
+                Portfolio
               </motion.p>
 
               <motion.h1
                 variants={fadeInUp}
                 className="text-4xl font-semibold tracking-tight text-slate-100 sm:text-5xl lg:text-6xl"
               >
-                <span className="bg-gradient-to-r from-indigo-300 via-purple-300 to-blue-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-slate-100 via-indigo-200 to-violet-200 bg-clip-text text-transparent">
                   Niraj Rathod
                 </span>
               </motion.h1>
 
-              <motion.div variants={fadeInUp} className="h-8 overflow-hidden">
+              <motion.div variants={fadeInUp} className="h-7 overflow-hidden sm:h-8">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={subtitleLines[subtitleIndex]}
@@ -109,7 +156,7 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -18 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="text-lg text-slate-200/95"
+                    className="text-base text-slate-200/95 sm:text-lg"
                   >
                     {subtitleLines[subtitleIndex]}
                   </motion.p>
@@ -118,25 +165,22 @@ export default function Home() {
 
               <motion.p
                 variants={fadeInUp}
-                className="max-w-2xl text-sm leading-7 text-slate-300/90 sm:text-base"
+                className="max-w-2xl text-sm leading-6 text-slate-300/90 sm:text-base sm:leading-7"
               >
                 Information Technology student at Vidyalankar Institute of
                 Technology, focused on scalable backend systems, cloud-native
                 architecture, and clean product experiences.
               </motion.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-                <Link
-                  href="/projects"
-                  className="inline-flex items-center gap-2 rounded-full border border-indigo-300/35 bg-gradient-to-r from-indigo-500/30 via-purple-500/25 to-blue-500/30 px-5 py-2.5 text-sm font-medium text-indigo-100 transition hover:from-indigo-500/45 hover:to-blue-500/45"
-                >
+              <motion.div
+                variants={fadeInUp}
+                className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3"
+              >
+                <Link href="/projects" className={primaryButtonClass}>
                   View Projects
                   <FiArrowRight />
                 </Link>
-                <Link
-                  href="/contact"
-                  className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-slate-200 transition hover:bg-white/10"
-                >
+                <Link href="/contact" className={secondaryButtonClass}>
                   Contact Me
                 </Link>
               </motion.div>
@@ -146,13 +190,13 @@ export default function Home() {
               variants={staggerContainer}
               initial="hidden"
               animate="show"
-              className="grid gap-3"
+              className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1"
             >
               {heroHighlights.map((item) => (
                 <motion.div key={item.label} variants={fadeInUp}>
-                  <Card className="p-4" hover={false}>
+                  <Card className="p-3.5 sm:p-4" hover={false}>
                     <div className="flex items-center gap-4">
-                      <span className="grid h-10 w-10 place-content-center rounded-full border border-indigo-200/30 bg-indigo-500/20 text-indigo-200">
+                      <span className="grid h-9 w-9 place-content-center rounded-full border border-indigo-200/25 bg-indigo-300/14 text-slate-200 sm:h-10 sm:w-10">
                         {item.icon}
                       </span>
                       <div>
@@ -170,17 +214,14 @@ export default function Home() {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="py-10">
-        <div className="mb-8 flex items-end justify-between gap-3">
+      <SectionContainer className="py-6 sm:py-10">
+        <div className="mb-6 flex flex-col items-start gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
           <AnimatedHeading
             title="Featured Projects"
             subtitle="Glass cards with gradient badges and smooth motion interactions."
             className="max-w-2xl"
           />
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
-          >
+          <Link href="/projects" className={accentLinkClass}>
             All projects
             <FiArrowRight />
           </Link>
@@ -192,17 +233,14 @@ export default function Home() {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="py-10">
-        <div className="mb-8 flex items-end justify-between gap-3">
+      <SectionContainer className="py-6 sm:py-10">
+        <div className="mb-6 flex flex-col items-start gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
           <AnimatedHeading
             title="Skills"
             subtitle="Focused across backend engineering, cloud tooling, and modern frontend development."
             className="max-w-2xl"
           />
-          <Link
-            href="/skills"
-            className="inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
-          >
+          <Link href="/skills" className={accentLinkClass}>
             Skills page
             <FiArrowRight />
           </Link>
@@ -210,7 +248,7 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {skillCategories.map((category) => (
             <Card key={category.title}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-indigo-100/80">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-slate-300/80">
                 {category.title}
               </h3>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -223,17 +261,14 @@ export default function Home() {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="py-10">
-        <div className="mb-8 flex items-end justify-between gap-3">
+      <SectionContainer className="py-6 sm:py-10">
+        <div className="mb-6 flex flex-col items-start gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
           <AnimatedHeading
             title="Certificates"
             subtitle="Validated knowledge in cloud computing and modern web development."
             className="max-w-2xl"
           />
-          <Link
-            href="/certificates"
-            className="inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
-          >
+          <Link href="/certificates" className={accentLinkClass}>
             View all
             <FiArrowRight />
           </Link>
@@ -245,7 +280,7 @@ export default function Home() {
               <p className="mt-2 text-sm text-slate-300/85">{certificate.issuer}</p>
               <Link
                 href={`/certificates/${certificate.slug}`}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
+                className={`${accentLinkClass} mt-5`}
               >
                 View certificate
                 <FiArrowRight />
@@ -255,17 +290,41 @@ export default function Home() {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="py-10">
-        <div className="mb-8 flex items-end justify-between gap-3">
+      <SectionContainer className="py-6 sm:py-10">
+        <div className="mb-6 sm:mb-8">
+          <AnimatedHeading
+            title="Resume"
+            subtitle="Get a concise overview of my education, technical skills, projects, and backend-focused engineering experience."
+            className="max-w-2xl"
+          />
+        </div>
+        <Card hover={false} className="bg-slate-900/52">
+          <div className="flex flex-col items-center gap-4 text-center sm:gap-5 md:flex-row md:items-center md:justify-between md:text-left">
+            <p className="max-w-3xl text-sm leading-7 text-slate-300/90 sm:text-base">
+              Download the latest version of my resume in PDF format.
+            </p>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              download
+              className={`${primaryButtonClass} max-w-xs shrink-0 sm:max-w-none`}
+            >
+              <FiDownload />
+              Download Resume
+            </a>
+          </div>
+        </Card>
+      </SectionContainer>
+
+      <SectionContainer className="py-6 sm:py-10">
+        <div className="mb-6 flex flex-col items-start gap-2 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
           <AnimatedHeading
             title="Contact"
             subtitle="Available for internships, freelance collaboration, and backend engineering opportunities."
             className="max-w-2xl"
           />
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
-          >
+          <Link href="/contact" className={accentLinkClass}>
             Contact page
             <FiArrowRight />
           </Link>
@@ -279,7 +338,7 @@ export default function Home() {
                 rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
                 className="block"
               >
-                <p className="text-sm uppercase tracking-[0.14em] text-indigo-100/70">
+                <p className="text-sm uppercase tracking-[0.14em] text-slate-300/80">
                   {contact.label}
                 </p>
                 <p className="mt-2 line-clamp-1 text-base font-medium text-slate-100">
@@ -289,17 +348,17 @@ export default function Home() {
             </Card>
           ))}
         </div>
-        <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-300/90">
+        <div className="mt-8 flex flex-col gap-2.5 text-sm text-slate-300/90 sm:flex-row sm:flex-wrap sm:gap-3">
           <a
             href="mailto:rathodniraj.com@gmail.com"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10 sm:w-auto"
           >
             <FiMail />
             Email
           </a>
           <a
             href="tel:+919309324120"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10 sm:w-auto"
           >
             <FiPhone />
             Call
@@ -308,7 +367,7 @@ export default function Home() {
             href="https://github.com/Niraj1232005"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 transition hover:bg-white/10 sm:w-auto"
           >
             <FiGithub />
             GitHub

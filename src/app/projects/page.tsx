@@ -7,7 +7,7 @@ import { projects } from "@/data/content";
 
 export default function Projects() {
   return (
-    <SectionContainer className="pb-20 pt-36">
+    <SectionContainer className="pb-14 pt-24 sm:pb-20 sm:pt-36">
       <AnimatedHeading
         level="h1"
         eyebrow="Projects"
@@ -17,7 +17,7 @@ export default function Projects() {
         className="max-w-3xl"
       />
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
         {projects.map((project, index) => (
           <ProjectCard key={project.title} project={project} index={index} />
         ))}

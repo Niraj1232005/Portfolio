@@ -50,7 +50,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-indigo-200 transition hover:text-indigo-100"
+              className="inline-flex items-center gap-1.5 text-slate-200 transition hover:text-violet-100"
             >
               <FiGithub className="text-base" />
               <span>GitHub</span>
@@ -60,7 +60,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                 href={project.live}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-blue-200 transition hover:text-blue-100"
+                className="inline-flex items-center gap-1.5 text-violet-200 transition hover:text-violet-100"
               >
                 <FiExternalLink className="text-base" />
                 <span>Live Demo</span>

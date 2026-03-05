@@ -12,12 +12,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { href: "/", label: "Home" },
+    { href: "/?intro=0", matchPath: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/projects", label: "Projects" },
     { href: "/skills", label: "Skills" },
     { href: "/certificates", label: "Certificates" },
-    { href: "/contact", label: "Contact" },
   ];
 
   const isActive = (href: string) => {
@@ -26,10 +25,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-2xl border border-white/10 bg-slate-950/55 px-4 py-3 backdrop-blur-xl shadow-[0_20px_45px_-30px_rgba(56,189,248,0.4)] sm:px-6">
-        <Link href="/" className="flex items-center gap-3">
-          <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-indigo-200/30 bg-gradient-to-br from-indigo-500/25 via-purple-500/25 to-blue-500/25">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6 sm:pt-4 lg:px-8">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-xl border border-white/14 bg-slate-900/60 px-3 py-2.5 backdrop-blur-xl shadow-[0_18px_46px_-32px_rgba(30,41,59,0.75)] sm:rounded-2xl sm:px-6 sm:py-3">
+        <Link href="/?intro=1" className="flex items-center gap-2.5 sm:gap-3">
+          <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-slate-200/30 bg-gradient-to-br from-slate-300/14 via-indigo-300/18 to-violet-300/16 sm:h-9 sm:w-9">
             <Image src="/logo_new.png" alt="NR logo" width={26} height={26} />
           </span>
           <span className="hidden text-sm font-semibold tracking-wide text-slate-200 sm:inline">
@@ -45,8 +44,8 @@ export default function Navbar() {
                   href={item.href}
                   className={cn(
                     "rounded-full px-3 py-2 transition",
-                    isActive(item.href)
-                      ? "bg-white/10 text-slate-100 shadow-[0_0_20px_rgba(99,102,241,0.35)]"
+                    isActive(item.matchPath ?? item.href)
+                      ? "bg-white/12 text-slate-100 shadow-[0_0_20px_rgba(129,140,248,0.25)]"
                       : "text-slate-300 hover:bg-white/8 hover:text-white"
                   )}
                 >
@@ -57,7 +56,7 @@ export default function Navbar() {
             <li className="ml-1">
               <Link
                 href="/contact"
-                className="rounded-full border border-indigo-300/40 bg-gradient-to-r from-indigo-500/30 via-purple-500/25 to-blue-500/30 px-4 py-2 font-medium text-indigo-100 transition hover:from-indigo-500/40 hover:to-blue-500/40"
+                className="rounded-full border border-indigo-200/35 bg-gradient-to-r from-indigo-400/28 via-violet-400/22 to-slate-300/18 px-4 py-2 font-medium text-slate-100 transition hover:from-indigo-400/38 hover:to-slate-300/28"
               >
                 Contact
               </Link>
@@ -67,7 +66,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="grid h-10 w-10 place-content-center gap-1 rounded-lg border border-white/15 bg-white/5 text-slate-100 md:hidden"
+          className="grid h-9 w-9 place-content-center gap-1 rounded-lg border border-white/15 bg-white/5 text-slate-100 md:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="h-0.5 w-5 bg-current" />
@@ -83,7 +82,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.2 }}
-            className="mx-auto mt-3 w-full max-w-6xl rounded-2xl border border-white/10 bg-slate-950/80 p-4 backdrop-blur-xl md:hidden"
+            className="mx-auto mt-3 w-full max-w-6xl rounded-2xl border border-white/12 bg-slate-900/75 p-4 backdrop-blur-xl md:hidden"
           >
             <ul className="grid gap-2 text-sm">
               {navItems.map((item) => (
@@ -93,7 +92,7 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     className={cn(
                       "block rounded-lg px-3 py-2 transition",
-                      isActive(item.href)
+                      isActive(item.matchPath ?? item.href)
                         ? "bg-white/10 text-slate-100"
                         : "text-slate-300 hover:bg-white/8 hover:text-white"
                     )}
@@ -102,6 +101,15 @@ export default function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className="pt-1">
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex w-full items-center justify-center rounded-lg border border-indigo-200/35 bg-gradient-to-r from-indigo-400/28 via-violet-400/22 to-slate-300/18 px-3 py-2 font-medium text-slate-100 transition hover:from-indigo-400/38 hover:to-slate-300/28"
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </motion.nav>
         ) : null}

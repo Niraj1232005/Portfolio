@@ -30,17 +30,17 @@ const iconMap: Record<string, ReactNode> = {
 
 export default function Contact() {
   return (
-    <SectionContainer className="pb-20 pt-36">
+    <SectionContainer className="pb-14 pt-24 sm:pb-20 sm:pt-36">
       <AnimatedHeading
         level="h1"
         eyebrow="Contact"
-        title="Let’s Build Something Useful"
+        title="Let's Build Something Useful"
         subtitle="Open to internships, freelance opportunities, and technical collaborations."
         gradientTitle
         className="max-w-3xl"
       />
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
         {contactMethods.map((contact, index) => (
           <motion.div
             key={contact.label}
@@ -55,15 +55,17 @@ export default function Contact() {
                 href={contact.href}
                 target={contact.href.startsWith("http") ? "_blank" : undefined}
                 rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
-                className="block h-full rounded-2xl p-6"
+                className="block h-full rounded-2xl p-4"
               >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-indigo-300/30 bg-indigo-500/20 text-indigo-100">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-indigo-200/25 bg-indigo-300/14 text-sm text-slate-100">
                   {iconMap[contact.label]}
                 </span>
-                <p className="mt-4 text-xs uppercase tracking-[0.15em] text-indigo-100/70">
+
+                <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-slate-300/80">
                   {contact.label}
                 </p>
-                <p className="mt-2 break-all text-base font-medium text-slate-100">
+
+                <p className="mt-1 break-all text-sm font-medium text-slate-100">
                   {contact.value}
                 </p>
               </a>
@@ -73,9 +75,9 @@ export default function Contact() {
       </div>
 
       <Card className="mt-8" hover={false}>
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.15em] text-indigo-100/70">
+            <p className="text-sm uppercase tracking-[0.15em] text-slate-300/80">
               Preferred channel
             </p>
             <p className="mt-2 text-base text-slate-200">
@@ -84,7 +86,7 @@ export default function Contact() {
           </div>
           <a
             href="mailto:rathodniraj.com@gmail.com"
-            className="inline-flex items-center gap-2 rounded-full border border-indigo-300/35 bg-gradient-to-r from-indigo-500/30 via-purple-500/25 to-blue-500/30 px-5 py-2.5 text-sm font-medium text-indigo-100 transition hover:from-indigo-500/45 hover:to-blue-500/45"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-indigo-200/35 bg-gradient-to-r from-indigo-400/28 via-violet-400/22 to-slate-300/18 px-5 py-2.5 text-sm font-medium text-slate-100 transition hover:from-indigo-400/38 hover:to-slate-300/28 sm:w-auto"
           >
             <FiSend />
             Send Email

@@ -12,6 +12,9 @@ type Particle = {
   duration: number;
 };
 
+const INTRO_TOTAL_MS = 5000;
+const EXIT_ANIMATION_MS = 800;
+
 function createParticles(count: number): Particle[] {
   return Array.from({ length: count }, () => {
     const angle = Math.random() * Math.PI * 2;
@@ -32,24 +35,29 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const frameId = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(frameId);
   }, []);
 
   const particles = useMemo(() => {
     if (!mounted) return [];
-    return createParticles(180);
+    const isMobile = window.innerWidth < 640;
+    return createParticles(isMobile ? 60 : 120);
   }, [mounted]);
 
   const handleFinish = useCallback(() => {
     if (isExiting) return;
     setIsExiting(true);
-    window.setTimeout(onFinish, 800);
+    window.setTimeout(onFinish, EXIT_ANIMATION_MS);
   }, [isExiting, onFinish]);
 
   useEffect(() => {
     if (!mounted) return;
 
-    const timer = window.setTimeout(handleFinish, 4200);
+    const timer = window.setTimeout(
+      handleFinish,
+      INTRO_TOTAL_MS - EXIT_ANIMATION_MS
+    );
 
     window.addEventListener("keydown", handleFinish);
     window.addEventListener("click", handleFinish);
@@ -72,10 +80,10 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="fixed inset-0 z-[120] flex cursor-none items-center justify-center overflow-hidden bg-slate-950"
+          className="fixed inset-0 z-[120] flex cursor-none items-center justify-center overflow-hidden bg-slate-900"
         >
           {/* Background glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.38),transparent_40%),radial-gradient(circle_at_82%_18%,rgba(168,85,247,0.26),transparent_32%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.26),transparent_40%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(129,140,248,0.28),transparent_40%),radial-gradient(circle_at_82%_18%,rgba(167,139,250,0.22),transparent_32%),radial-gradient(circle_at_50%_90%,rgba(148,163,184,0.2),transparent_40%)]" />
 
           {/* Grid */}
           <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(to_right,rgba(148,163,184,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.18)_1px,transparent_1px)] [background-size:42px_42px] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]" />
@@ -84,7 +92,7 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
           <motion.div
             animate={{ scale: [1, 1.16, 1], opacity: [0.3, 0.65, 0.3] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute h-[24rem] w-[24rem] rounded-full bg-indigo-500/30 blur-[120px]"
+            className="absolute h-[24rem] w-[24rem] rounded-full bg-indigo-400/24 blur-[120px]"
           />
 
           {/* Particles */}
@@ -104,7 +112,7 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute rounded-full bg-gradient-to-r from-indigo-300 to-blue-300 shadow-[0_0_14px_rgba(129,140,248,0.85)]"
+                className="absolute rounded-full bg-gradient-to-r from-indigo-200 to-violet-200 opacity-70 shadow-[0_0_14px_rgba(167,139,250,0.6)] sm:opacity-100"
                 style={{ width: particle.size, height: particle.size }}
               />
             ))}
@@ -117,7 +125,7 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-20 text-center"
           >
-            <div className="relative mx-auto mb-8 flex h-28 w-28 items-center justify-center rounded-full border border-indigo-200/30 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-blue-500/20 shadow-[0_0_40px_rgba(99,102,241,0.4)]">
+            <div className="relative mx-auto mb-8 flex h-28 w-28 items-center justify-center rounded-full border border-indigo-200/25 bg-gradient-to-br from-slate-300/12 via-indigo-300/16 to-violet-300/14 shadow-[0_0_40px_rgba(129,140,248,0.3)]">
               <Image
                 src="/logo_new.png"
                 alt="NR logo"
@@ -127,14 +135,14 @@ export default function Intro({ onFinish }: { onFinish: () => void }) {
               />
             </div>
 
-            <h2 className="bg-gradient-to-r from-indigo-300 via-purple-300 to-blue-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+            <h2 className="bg-gradient-to-r from-slate-100 via-indigo-200 to-violet-200 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
               Niraj Rathod
             </h2>
 
             <motion.p
               animate={{ opacity: [0.55, 1, 0.55] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-              className="mt-3 text-sm tracking-[0.24em] text-indigo-100/80"
+              className="mt-3 text-sm tracking-[0.24em] text-slate-100/80"
             >
               Backend Engineer Portfolio
             </motion.p>

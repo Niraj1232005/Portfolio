@@ -1,65 +1,240 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useState } from "react";
+import Intro from "@/components/Intro";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(true);
+
+  if (showIntro) {
+    return <Intro onFinish={() => setShowIntro(false)} />;
+  }
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <section className="pt-30">
+      <div className="max-w-3xl mx-auto px-5">
+        {/* HERO */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="mb-12"
+        >
+          <h1 className="text-4xl font-semibold">Niraj Rathod</h1>
+
+          <p className="mt-3 text-gray-400 text-sm leading-7 max-w-xl font-semibold">
+            Information Technology & Engineering student at Vidyalankar
+            Institute of Technology.
+            <br />
+            Web Developer & Software Engineer.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </motion.div>
+
+        {/* PROJECTS */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mt-12"
+        >
+          <Link href="/projects" className="group">
+            <h2 className="text-3xl font-semibold mb-6 group-hover:underline transition">
+              Projects
+            </h2>
+          </Link>
+
+          <div className="pl-4 text-sm text-gray-300 space-y-6 leading-6">
+            {[
+              {
+                title: "BookAlchemy",
+                desc: "A powerful ML-powered book recommendation system with an intuitive Streamlit interface",
+                link: "https://github.com/Niraj1232005/book-recommendation-system-ml-knn.git",
+              },
+              {
+                title: "AeroCast",
+                desc: "Real-time weather app with API integration using Node.js, Express, Docker and CI/CD deployment.",
+                link: "https://github.com/Niraj1232005/AeroCast.git",
+              },
+              {
+                title: "Voynex",
+                desc: "AI-powered platform suggesting personalized packing lists based on user preferences.",
+                link: "https://github.com/Niraj1232005/voynex",
+              },
+            ].map((p, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="hover:translate-x-1 transition"
+              >
+                <a
+                  href={p.link}
+                  target="_blank"
+                  className="text-white font-semibold hover:underline"
+                >
+                  {p.title}
+                </a>
+
+                <p className="text-gray-400 mt-1 max-w-xl">{p.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* SKILLS */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mt-12"
+        >
+          <Link href="/skills" className="group">
+            <h2 className="text-3xl font-semibold mb-6 group-hover:underline transition">
+              Skills
+            </h2>
+          </Link>
+
+          <div className="pl-4 text-sm text-gray-300 space-y-3 leading-7">
+            <p>
+              <span className="font-semibold text-white">Languages:</span> Java,
+              Python, JavaScript, HTML, CSS
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">
+                Frameworks/Libraries:
+              </span>{" "}
+              Python, React, Node.js, Express.js, React Query
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">OS:</span> Windows,
+              Linux
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">
+                Serverless Platforms:
+              </span>{" "}
+              AWS, GCP
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">Databases:</span>{" "}
+              MySQL, PostgreSQL
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">Developer Tools:</span>{" "}
+              Git, VS Code, Postman, Supabase
+            </p>
+          </div>
+        </motion.div>
+
+        {/* CERTIFICATES */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mt-12"
+        >
+          <Link href="/certificates" className="group">
+            <h2 className="text-3xl font-semibold mb-6 group-hover:underline transition">
+              Certificates
+            </h2>
+          </Link>
+
+          <div className="pl-4 text-sm text-gray-300 space-y-6 leading-6">
+            <div className="hover:translate-x-1 transition">
+              <Link
+                href="/certificates/gcp"
+                className="text-white font-semibold hover:underline"
+              >
+                Google Cloud Certification
+              </Link>
+
+              <p className="text-gray-400 mt-1 max-w-xl">
+                Focused on cloud fundamentals, GCP services, and scalable
+                systems.
+              </p>
+            </div>
+
+            <div className="hover:translate-x-1 transition">
+              <Link
+                href="/certificates/react"
+                className="text-white font-semibold hover:underline"
+              >
+                React Developer Certificate
+              </Link>
+
+              <p className="text-gray-400 mt-1 max-w-xl">
+                Covers modern React, hooks, and dynamic UI development.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* CONTACT */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mt-12 mb-20"
+        >
+          <Link href="/contact" className="group">
+            <h2 className="text-3xl font-semibold mb-6 group-hover:underline transition">
+              Contact
+            </h2>
+          </Link>
+
+          <div className="pl-4 text-sm text-gray-300 space-y-3 leading-7">
+            <p>
+              <span className="font-semibold text-white">Phone:</span>{" "}
+              <a href="tel:+919309324120" className="hover:underline">
+                +91 93093 24120
+              </a>
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">Email:</span>{" "}
+              <a
+                href="mailto:rathodniraj.com@gmail.com"
+                className="hover:underline"
+              >
+                rathodniraj.com@gmail.com
+              </a>
+            </p>
+
+            <p>
+              <span className="font-semibold text-white">GitHub:</span>{" "}
+              <a
+                href="https://github.com/Niraj1232005"
+                target="_blank"
+                className="hover:underline"
+              >
+                github.com/Niraj1232005
+              </a>
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

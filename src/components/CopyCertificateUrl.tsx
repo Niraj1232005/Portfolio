@@ -22,7 +22,7 @@ export default function CopyCertificateUrl({ slug }: { slug: string }) {
       <button
         type="button"
         onClick={handleCopy}
-        className="rounded-lg border border-indigo-300/35 bg-gradient-to-r from-indigo-500/30 via-purple-500/25 to-blue-500/30 px-4 py-2 text-sm font-medium text-indigo-100 transition hover:from-indigo-500/45 hover:to-blue-500/45"
+        className="rounded-lg border border-indigo-200/35 bg-gradient-to-r from-indigo-400/28 via-violet-400/22 to-slate-300/18 px-4 py-2 text-sm font-medium text-slate-100 transition hover:from-indigo-400/38 hover:to-slate-300/28"
       >
         {copied ? "Copied!" : "Copy certificate URL"}
       </button>

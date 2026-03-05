@@ -12,7 +12,7 @@ import { certificates } from "@/data/content";
 
 export default function Certificates() {
   return (
-    <SectionContainer className="pb-20 pt-36">
+    <SectionContainer className="pb-14 pt-24 sm:pb-20 sm:pt-36">
       <AnimatedHeading
         level="h1"
         eyebrow="Certificates"
@@ -22,7 +22,7 @@ export default function Certificates() {
         className="max-w-3xl"
       />
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
         {certificates.map((certificate, index) => (
           <motion.div
             key={certificate.slug}
@@ -50,7 +50,7 @@ export default function Certificates() {
 
               <Link
                 href={`/certificates/${certificate.slug}`}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm text-slate-200 transition hover:text-violet-100"
               >
                 View credential
                 <FiArrowRight />

@@ -1,66 +1,40 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import Card from "@/components/ui/Card";
+import SectionContainer from "@/components/ui/SectionContainer";
+import { fadeInUp, staggerContainer } from "@/components/ui/motion";
+import { aboutParagraphs } from "@/data/content";
 
 export default function About() {
   return (
-    <section className="pt-30 px-5">
-      <div className="max-w-3xl mx-auto">
+    <SectionContainer className="pb-20 pt-36">
+      <AnimatedHeading
+        level="h1"
+        eyebrow="About"
+        title="Engineering With Clarity and Scale"
+        subtitle="I focus on backend reliability, cloud-first thinking, and product experiences that stay fast and maintainable."
+        gradientTitle
+        className="max-w-3xl"
+      />
 
-        {/* TITLE */}
-        <motion.h1
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          className="text-4xl font-semibold mb-10"
-        >
-          About Me
-        </motion.h1>
-
-        {/* CONTENT */}
-        <div className="text-gray-300 text-lg leading-8 space-y-6 text-justify">
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-          >
-            I’m an Information Technology student at Vidyalankar Institute of Technology with a strong interest in software engineering and building solutions that solve real-world problems. I enjoy working across the full stack, with a primary focus on backend development and system design.
-          </motion.p>
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            I have hands-on experience with cloud technologies, especially Google Cloud Platform, and I like building scalable systems. Currently, I’m improving my problem-solving skills through Data Structures & Algorithms while also learning DevOps to understand how applications are built, deployed, and maintained efficiently.
-          </motion.p>
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            Beyond development, I’m interested in areas like cybersecurity, blockchain, and Web3. I enjoy learning new technologies, experimenting with ideas, and continuously working towards becoming a better engineer.
-          </motion.p>
-
-        </div>
-
-      </div>
-    </section>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+        className="mt-10 grid gap-5"
+      >
+        {aboutParagraphs.map((paragraph) => (
+          <motion.div key={paragraph} variants={fadeInUp}>
+            <Card hover={false}>
+              <p className="text-sm leading-7 text-slate-200/90 sm:text-base">
+                {paragraph}
+              </p>
+            </Card>
+          </motion.div>
+        ))}
+      </motion.div>
+    </SectionContainer>
   );
 }

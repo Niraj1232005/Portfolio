@@ -1,14 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
+import { fadeInUp } from "@/components/ui/motion";
 
-export default function Reveal({ children }: any) {
+export default function Reveal({ children }: { children: ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.25 }}
     >
       {children}
     </motion.div>

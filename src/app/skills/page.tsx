@@ -1,144 +1,112 @@
 "use client";
-// export declare const : IconType;
-import Reveal from "@/components/Reveal";
+
+import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import {
-  FaReact,
-  FaNodeJs,
+  FaCode,
+  FaCss3Alt,
   FaDocker,
   FaGitAlt,
   FaGithub,
   FaHtml5,
-  FaCss3Alt,
-  FaJs,
   FaJava,
-  FaPython,
-  FaWindows,
+  FaJs,
   FaLinux,
+  FaNodeJs,
+  FaPython,
+  FaReact,
 } from "react-icons/fa";
-
-import {
-  SiTypescript,
-  SiNextdotjs,
-  SiGooglecloud,
-  SiPostgresql,
-  SiMysql,
-  SiFirebase,
-  SiPostman,
-} from "react-icons/si";
-
-import { TbApi } from "react-icons/tb";
-import { MdSecurity } from "react-icons/md";
-import { CiCloud } from "react-icons/ci";
 import { BiGitBranch } from "react-icons/bi";
+import { MdSecurity } from "react-icons/md";
+import {
+  SiExpress,
+  SiFirebase,
+  SiFramer,
+  SiGooglecloud,
+  SiMysql,
+  SiNextdotjs,
+  SiPostgresql,
+  SiPostman,
+  SiSupabase,
+  SiTypescript,
+} from "react-icons/si";
+import { TbApi } from "react-icons/tb";
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import Card from "@/components/ui/Card";
+import SectionContainer from "@/components/ui/SectionContainer";
+import SkillBadge from "@/components/ui/SkillBadge";
+import { fadeInUp } from "@/components/ui/motion";
+import { skillCategories } from "@/data/content";
 
-const skillCategories = [
-  {
-    title: "Languages",
-    skills: [
-      { name: "Java", icon: <FaJava /> },
-      { name: "Python", icon: <FaPython /> },
-      { name: "JavaScript", icon: <FaJs /> },
-    ],
-  },
-  {
-    title: "Frontend",
-    skills: [
-      { name: "HTML", icon: <FaHtml5 /> },
-      { name: "CSS", icon: <FaCss3Alt /> },
-      { name: "React", icon: <FaReact /> },
-      { name: "Next.js", icon: <SiNextdotjs /> },
-      { name: "TypeScript", icon: <SiTypescript /> },
-    ],
-  },
-  {
-    title: "Backend",
-    skills: [
-      { name: "Node.js", icon: <FaNodeJs /> },
-      { name: "REST APIs", icon: <TbApi /> },
-      { name: "Authentication", icon: <MdSecurity /> },
-    ],
-  },
-  {
-    title: "Database",
-    skills: [
-      { name: "PostgreSQL", icon: <SiPostgresql /> },
-      { name: "MySQL", icon: <SiMysql /> },
-      { name: "Firestore", icon: <SiFirebase /> },
-    ],
-  },
-  {
-    title: "Cloud & DevOps",
-    skills: [
-      { name: "GCP", icon: <SiGooglecloud /> },
-      { name: "Docker", icon: <FaDocker /> },
-      { name: "Cloud Run", icon: <CiCloud /> },
-      { name: "Pub/Sub", icon: <CiCloud /> },
-      { name: "Dataflow", icon: <CiCloud /> },
-      { name: "CI/CD", icon: <BiGitBranch /> },
-    ],
-  },
-  {
-    title: "OS & Tools",
-    skills: [
-      { name: "Windows", icon: <FaWindows /> },
-      { name: "Linux", icon: <FaLinux /> },
-      { name: "Git", icon: <FaGitAlt /> },
-      { name: "GitHub", icon: <FaGithub /> },
-      { name: "Postman", icon: <SiPostman /> },
-    ],
-  },
-];
+const skillIcons: Record<string, ReactNode> = {
+  Java: <FaJava />,
+  Python: <FaPython />,
+  JavaScript: <FaJs />,
+  TypeScript: <SiTypescript />,
+  HTML: <FaHtml5 />,
+  CSS: <FaCss3Alt />,
+  React: <FaReact />,
+  "Next.js": <SiNextdotjs />,
+  "Framer Motion": <SiFramer />,
+  "Node.js": <FaNodeJs />,
+  Express: <SiExpress />,
+  "REST APIs": <TbApi />,
+  Authentication: <MdSecurity />,
+  PostgreSQL: <SiPostgresql />,
+  MySQL: <SiMysql />,
+  Firestore: <SiFirebase />,
+  Supabase: <SiSupabase />,
+  "Google Cloud": <SiGooglecloud />,
+  Docker: <FaDocker />,
+  "CI/CD": <BiGitBranch />,
+  "Cloud Run": <SiGooglecloud />,
+  Dataflow: <SiGooglecloud />,
+  Git: <FaGitAlt />,
+  GitHub: <FaGithub />,
+  Postman: <SiPostman />,
+  Linux: <FaLinux />,
+  "VS Code": <FaCode />,
+};
 
 export default function Skills() {
   return (
-    <section className="pt-30 px-5 pb-5">
-      <div className="max-w-3xl mx-auto">
+    <SectionContainer className="pb-20 pt-36">
+      <AnimatedHeading
+        level="h1"
+        eyebrow="Skills"
+        title="Tools and Technologies"
+        subtitle="Core stack across full-stack development, cloud platforms, and deployment pipelines."
+        gradientTitle
+        className="max-w-3xl"
+      />
 
-        {/* TITLE */}
-        <Reveal>
-          <h1 className="text-4xl font-semibold mb-12">
-            Skills
-          </h1>
-        </Reveal>
-
-        {/* GRID */}
-        <div className="space-y-10">
-
-          {skillCategories.map((category, index) => (
-            <Reveal key={index}>
-              <div>
-
-                {/* CATEGORY TITLE */}
-                <h2 className="text-lg font-semibold text-gray-300 mb-4">
-                  {category.title}
-                </h2>
-
-                {/* SKILLS */}
-                <div className="flex flex-wrap gap-3">
-
-                  {category.skills.map((skill, i) => (
-                    <motion.div
-                      key={i}
-                      whileHover={{ y: -2 }}
-                      className="flex items-center gap-2 px-3 py-1.5 text-sm border border-white/10 rounded-md text-gray-300 hover:border-white/30 hover:bg-white/5 transition"
-                    >
-                      {skill.icon && (
-                        <span className="text-base">{skill.icon}</span>
-                      )}
-                      {skill.name}
-                    </motion.div>
-                  ))}
-
-                </div>
-
+      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {skillCategories.map((category, index) => (
+          <motion.div
+            key={category.title}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.24 }}
+            transition={{ delay: index * 0.06 }}
+          >
+            <Card className="h-full">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-indigo-100/80">
+                {category.title}
+              </h2>
+              <div className="mt-4 flex flex-wrap gap-2.5">
+                {category.skills.map((skill) => (
+                  <SkillBadge
+                    key={`${category.title}-${skill}`}
+                    label={skill}
+                    icon={skillIcons[skill]}
+                  />
+                ))}
               </div>
-            </Reveal>
-          ))}
-
-        </div>
-
+            </Card>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </SectionContainer>
   );
 }

@@ -1,160 +1,150 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-type Particle = { x: number; y: number; delay: number; size: number; duration: number };
+type Particle = {
+  x: number;
+  y: number;
+  size: number;
+  delay: number;
+  duration: number;
+};
+
+function createParticles(count: number): Particle[] {
+  return Array.from({ length: count }, () => {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 130 + Math.random() * 340;
+
+    return {
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius,
+      size: Math.random() * 2.4 + 1.2,
+      delay: Math.random() * 1.6,
+      duration: 2 + Math.random() * 1.6,
+    };
+  });
+}
 
 export default function Intro({ onFinish }: { onFinish: () => void }) {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [mounted, setMounted] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const particles = useMemo(() => {
+    if (!mounted) return [];
+    return createParticles(180);
+  }, [mounted]);
 
   const handleFinish = useCallback(() => {
     if (isExiting) return;
     setIsExiting(true);
-    setTimeout(onFinish, 1200); // Small buffer for exit animation
-  }, [onFinish, isExiting]);
+    window.setTimeout(onFinish, 800);
+  }, [isExiting, onFinish]);
 
   useEffect(() => {
-    // Generate cinematic ash/fire particles
-    const generatedParticles = Array.from({ length: 150 }, () => {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 200 + Math.random() * 600;
-      return {
-        x: Math.cos(angle) * distance,
-        y: Math.sin(angle) * distance,
-        delay: Math.random() * 2,
-        size: Math.random() * 3 + 1,
-        duration: 2 + Math.random() * 2,
-      };
-    });
+    if (!mounted) return;
 
-    setParticles(generatedParticles);
+    const timer = window.setTimeout(handleFinish, 4200);
 
-    const timer = setTimeout(handleFinish, 6000);
     window.addEventListener("keydown", handleFinish);
     window.addEventListener("click", handleFinish);
 
     return () => {
-      clearTimeout(timer);
+      window.clearTimeout(timer);
       window.removeEventListener("keydown", handleFinish);
       window.removeEventListener("click", handleFinish);
     };
-  }, [handleFinish]);
+  }, [handleFinish, mounted]);
+
+  if (!mounted) return null;
 
   return (
     <AnimatePresence>
-      {!isExiting && (
+      {!isExiting ? (
         <motion.div
-          key="intro-container"
-          initial={{ opacity: 1 }}
+          key="intro-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 bg-black flex items-center justify-center overflow-hidden z-[9999] cursor-none"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="fixed inset-0 z-[120] flex cursor-none items-center justify-center overflow-hidden bg-slate-950"
         >
-          {/* 1. Deep Ambient Background */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-red-950/40 via-black to-black" />
+          {/* Background glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.38),transparent_40%),radial-gradient(circle_at_82%_18%,rgba(168,85,247,0.26),transparent_32%),radial-gradient(circle_at_50%_90%,rgba(59,130,246,0.26),transparent_40%)]" />
 
-          {/* 2. Animated Grid Floor (Futuristic Feel) */}
-          <div
-            className="absolute inset-0 opacity-[0.15]"
-            style={{
-              backgroundImage: `linear-gradient(#ff0000 1px, transparent 1px), linear-gradient(90deg, #ff0000 1px, transparent 1px)`,
-              backgroundSize: '50px 50px',
-              maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)'
-            }}
-          />
+          {/* Grid */}
+          <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(to_right,rgba(148,163,184,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.18)_1px,transparent_1px)] [background-size:42px_42px] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]" />
 
-          {/* 3. Central Energy Core (The Glow behind Logo) */}
+          {/* Pulsing energy sphere */}
           <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute w-[400px] h-[400px] bg-red-600/20 rounded-full blur-[120px]"
+            animate={{ scale: [1, 1.16, 1], opacity: [0.3, 0.65, 0.3] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute h-[24rem] w-[24rem] rounded-full bg-indigo-500/30 blur-[120px]"
           />
 
-          {/* 4. Explosion/Ash Particles */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            {particles.map((p, i) => (
+          {/* Particles */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            {particles.map((particle, index) => (
               <motion.div
-                key={i}
+                key={index}
                 initial={{ x: 0, y: 0, opacity: 0 }}
                 animate={{
-                  x: isExiting ? p.x * 1.5 : p.x,
-                  y: isExiting ? p.y * 1.5 : p.y,
-                  opacity: isExiting ? 0 : [0, 1, 0]
+                  x: particle.x,
+                  y: particle.y,
+                  opacity: [0, 0.9, 0],
                 }}
                 transition={{
-                  duration: p.duration,
-                  repeat: isExiting ? 0 : Infinity,
-                  delay: p.delay,
-                  ease: "easeOut",
+                  duration: particle.duration,
+                  delay: particle.delay,
+                  repeat: Infinity,
+                  ease: "easeInOut",
                 }}
-                className="absolute bg-gradient-to-t from-red-600 to-orange-400 rounded-full shadow-[0_0_10px_rgba(255,50,0,0.8)]"
-                style={{ width: p.size, height: p.size }}
+                className="absolute rounded-full bg-gradient-to-r from-indigo-300 to-blue-300 shadow-[0_0_14px_rgba(129,140,248,0.85)]"
+                style={{ width: particle.size, height: particle.size }}
               />
             ))}
           </div>
 
-          {/* 5. Main Brand Presentation */}
+          {/* Center Content */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 flex flex-col items-center"
+            initial={{ opacity: 0, y: 18, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-20 text-center"
           >
-            <div className="relative group">
-              {/* Decorative Rings */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-8 border border-red-500/20 rounded-full border-dashed"
+            <div className="relative mx-auto mb-8 flex h-28 w-28 items-center justify-center rounded-full border border-indigo-200/30 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-blue-500/20 shadow-[0_0_40px_rgba(99,102,241,0.4)]">
+              <Image
+                src="/logo_new.png"
+                alt="NR logo"
+                width={66}
+                height={66}
+                priority
               />
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-12 border border-white/5 rounded-full"
-              />
-
-              {/* Logo Container - Circle shape with centered 'NR' logo */}
-              <div className="w-48 h-48 rounded-full border border-white/10 flex items-center justify-center relative overflow-hidden shadow-[0_0_50px_rgba(220,38,38,0.3)] p-6">
-                <Image
-                  src="/logo_new.png" // Ensure this path is correct in your public folder
-                  alt="Logo"
-                  width={250} // Large width to ensure it fills the circle area
-                  height={250} // Large height to ensure it fills the circle area
-                  className="object-contain z-10 w-full h-full"
-                  priority
-                />
-                {/* Internal Lens Flare */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-red-600/20 to-transparent" />
-              </div>
             </div>
 
-            {/* Text Reveal */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-12 text-center"
-            >
-              <h2 className="text-white text-3xl font-black tracking-[0.4em] uppercase italic">
-                Niraj<span className="text-red-600 underline decoration-red-600/50 underline-offset-8">Rathod</span>
-              </h2>
-              <div className="mt-4 h-[1px] w-12 bg-red-600 mx-auto" />
-              <p className="mt-4 text-gray-500 text-xs tracking-[0.2em] font-light">
-                SYSTEMS READY // PRESS ANY KEY
-              </p>
-            </motion.div>
-          </motion.div>
+            <h2 className="bg-gradient-to-r from-indigo-300 via-purple-300 to-blue-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+              Niraj Rathod
+            </h2>
 
-          {/* 6. Scanline Effect Overlay */}
-          <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-20 bg-[length:100%_2px,3px_100%]" />
+            <motion.p
+              animate={{ opacity: [0.55, 1, 0.55] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              className="mt-3 text-sm tracking-[0.24em] text-indigo-100/80"
+            >
+              Backend Engineer Portfolio
+            </motion.p>
+
+            <p className="mt-8 text-xs uppercase tracking-[0.2em] text-slate-400">
+              Click or press any key to continue
+            </p>
+          </motion.div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 }

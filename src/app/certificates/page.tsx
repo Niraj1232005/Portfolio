@@ -1,90 +1,64 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-
-type Certificate = {
-  title: string;
-  issuer: string;
-  image: string;
-  slug: string;
-};
+import { motion } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
+import AnimatedHeading from "@/components/ui/AnimatedHeading";
+import Card from "@/components/ui/Card";
+import SectionContainer from "@/components/ui/SectionContainer";
+import { fadeInUp } from "@/components/ui/motion";
+import { certificates } from "@/data/content";
 
 export default function Certificates() {
-  const certificates: Certificate[] = [
-    {
-      title: "Google Cloud Certification",
-      issuer: "Google Cloud",
-      image: "/certificates/gcp.png",
-      slug: "gcp",
-    },
-    {
-      title: "React Developer Certificate",
-      issuer: "Meta / Coursera",
-      image: "/certificates/aerocast.png",
-      slug: "react",
-    },
-    {
-      title: "Cloud Fundamentals",
-      issuer: "Google",
-      image: "/certificates/cloud.png",
-      slug: "cloud",
-    },
-  ];
-
   return (
-    <section className="pt-40 px-5">
-      <div className="max-w-3xl mx-auto">
+    <SectionContainer className="pb-20 pt-36">
+      <AnimatedHeading
+        level="h1"
+        eyebrow="Certificates"
+        title="Verified Learning Milestones"
+        subtitle="Professional certificates that validate cloud, frontend, and modern development knowledge."
+        gradientTitle
+        className="max-w-3xl"
+      />
 
-        {/* TITLE */}
-        <h1 className="text-4xl font-semibold mb-10">
-          Certificates
-        </h1>
-
-        {/* LIST */}
-        <div className="space-y-10">
-
-          {certificates.map((cert, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ y: -2 }}
-              className="flex gap-6 items-start"
-            >
-              {/* IMAGE */}
-              <div className="w-40 shrink-0">
+      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {certificates.map((certificate, index) => (
+          <motion.div
+            key={certificate.slug}
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.22 }}
+            transition={{ delay: index * 0.07 }}
+          >
+            <Card className="h-full">
+              <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-900/35">
                 <Image
-                  src={cert.image}
-                  alt={cert.title}
-                  width={300}
-                  height={200}
-                  className="rounded-md object-cover"
+                  src={certificate.image}
+                  alt={certificate.title}
+                  width={540}
+                  height={320}
+                  className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
 
-              {/* TEXT */}
-              <div>
-                <Link
-                  href={`/certificates/${cert.slug}`}
-                  className="text-white font-semibold hover:underline"
-                >
-                  {cert.title}
-                </Link>
+              <h2 className="mt-5 text-lg font-semibold text-slate-100">
+                {certificate.title}
+              </h2>
+              <p className="mt-2 text-sm text-slate-300/85">{certificate.issuer}</p>
 
-                <p className="text-gray-400 text-sm mt-1">
-                  {cert.issuer}
-                </p>
-
-                {/* <p className="text-gray-500 text-sm mt-2">
-                  Click to view certificate page (use for LinkedIn).
-                </p> */}
-              </div>
-            </motion.div>
-          ))}
-
-        </div>
-
+              <Link
+                href={`/certificates/${certificate.slug}`}
+                className="mt-5 inline-flex items-center gap-1.5 text-sm text-indigo-200 transition hover:text-indigo-100"
+              >
+                View credential
+                <FiArrowRight />
+              </Link>
+            </Card>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </SectionContainer>
   );
 }

@@ -38,7 +38,7 @@ export default function AnimatedHeading({
       className={cn(align === "center" ? "text-center" : "text-left", className)}
     >
       {eyebrow ? (
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.24em] text-slate-300/80">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
           {eyebrow}
         </p>
       ) : null}
@@ -46,8 +46,8 @@ export default function AnimatedHeading({
         className={cn(
           "text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl",
           gradientTitle
-            ? "bg-gradient-to-r from-slate-100 via-indigo-200 to-violet-200 bg-clip-text text-transparent"
-            : "text-slate-100",
+            ? "bg-gradient-to-r from-white via-indigo-200 to-violet-200 bg-clip-text text-transparent"
+            : "text-white",
           titleClassName
         )}
       >
@@ -56,7 +56,7 @@ export default function AnimatedHeading({
       {subtitle ? (
         <p
           className={cn(
-            "mt-4 max-w-2xl text-sm leading-7 text-slate-300/90 sm:text-base",
+            "mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base",
             align === "center" ? "mx-auto" : "",
             subtitleClassName
           )}

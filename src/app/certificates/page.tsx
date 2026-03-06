@@ -12,7 +12,7 @@ import { certificates } from "@/data/content";
 
 export default function Certificates() {
   return (
-    <SectionContainer className="pb-14 pt-24 sm:pb-20 sm:pt-36">
+    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-32">
       <AnimatedHeading
         level="h1"
         eyebrow="Certificates"
@@ -22,7 +22,7 @@ export default function Certificates() {
         className="max-w-3xl"
       />
 
-      <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-6 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
         {certificates.map((certificate, index) => (
           <motion.div
             key={certificate.slug}
@@ -33,7 +33,7 @@ export default function Certificates() {
             transition={{ delay: index * 0.07 }}
           >
             <Card className="h-full">
-              <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-900/35">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0f1117]">
                 <Image
                   src={certificate.image}
                   alt={certificate.title}
@@ -43,14 +43,14 @@ export default function Certificates() {
                 />
               </div>
 
-              <h2 className="mt-5 text-lg font-semibold text-slate-100">
+              <h2 className="mt-5 text-lg font-semibold text-white">
                 {certificate.title}
               </h2>
-              <p className="mt-2 text-sm text-slate-300/85">{certificate.issuer}</p>
+              <p className="mt-2 text-sm text-slate-400">{certificate.issuer}</p>
 
               <Link
                 href={`/certificates/${certificate.slug}`}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm text-slate-200 transition hover:text-violet-100"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm text-slate-300 transition hover:text-indigo-200"
               >
                 View credential
                 <FiArrowRight />

@@ -70,7 +70,7 @@ const skillIcons: Record<string, ReactNode> = {
 
 export default function Skills() {
   return (
-    <SectionContainer className="pb-14 pt-24 sm:pb-20 sm:pt-36">
+    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-32">
       <AnimatedHeading
         level="h1"
         eyebrow="Skills"
@@ -80,7 +80,7 @@ export default function Skills() {
         className="max-w-3xl"
       />
 
-      <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-6 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
         {skillCategories.map((category, index) => (
           <motion.div
             key={category.title}
@@ -91,7 +91,7 @@ export default function Skills() {
             transition={{ delay: index * 0.06 }}
           >
             <Card className="h-full">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-indigo-100/80">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
                 {category.title}
               </h2>
               <div className="mt-4 flex flex-wrap gap-2.5">

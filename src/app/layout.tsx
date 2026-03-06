@@ -32,11 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} min-h-screen text-slate-100 antialiased`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} min-h-screen bg-[#0a0a0f] text-slate-300 antialiased`}
       >
         <GlowBackground />
         <Navbar />
-        <main className="relative z-10">{children}</main>
+        <main className="relative z-10 pb-24 md:pb-0">{children}</main>
       </body>
     </html>
   );

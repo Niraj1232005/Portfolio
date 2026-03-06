@@ -17,15 +17,18 @@ export default function Card({
 }: CardProps) {
   return (
     <motion.div
-      whileHover={hover ? { y: -6, scale: 1.01 } : undefined}
-      transition={{ type: "spring", stiffness: 280, damping: 22 }}
+      whileHover={hover ? { y: -4, scale: 1.015 } : undefined}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-white/14 sm:rounded-2xl",
-        "bg-white/[0.05] p-4 backdrop-blur-xl shadow-[0_22px_56px_-36px_rgba(30,41,59,0.7)] sm:p-6",
+        "group relative overflow-hidden rounded-2xl border border-white/10",
+        "bg-white/[0.03] p-4 backdrop-blur-md shadow-[0_18px_44px_-34px_rgba(0,0,0,0.9)] transition-colors duration-300 sm:p-6",
+        hover ? "hover:border-white/20 hover:bg-white/[0.045]" : "",
         className
       )}
     >
-      <div className="pointer-events-none absolute -inset-px rounded-[inherit] bg-gradient-to-r from-slate-300/0 via-indigo-300/35 to-violet-300/0 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
+      {hover ? (
+        <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-indigo-500/10 via-transparent to-violet-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      ) : null}
       <div className="relative z-10">{children}</div>
     </motion.div>
   );

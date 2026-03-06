@@ -30,7 +30,7 @@ const iconMap: Record<string, ReactNode> = {
 
 export default function Contact() {
   return (
-    <SectionContainer className="pb-14 pt-24 sm:pb-20 sm:pt-36">
+    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-32">
       <AnimatedHeading
         level="h1"
         eyebrow="Contact"
@@ -40,7 +40,7 @@ export default function Contact() {
         className="max-w-3xl"
       />
 
-      <div className="mt-8 grid gap-4 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-6 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
         {contactMethods.map((contact, index) => (
           <motion.div
             key={contact.label}
@@ -57,15 +57,15 @@ export default function Contact() {
                 rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
                 className="block h-full rounded-2xl p-4"
               >
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-indigo-200/25 bg-indigo-300/14 text-sm text-slate-100">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/5 text-sm text-slate-300">
                   {iconMap[contact.label]}
                 </span>
 
-                <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-slate-300/80">
+                <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-slate-400">
                   {contact.label}
                 </p>
 
-                <p className="mt-1 break-all text-sm font-medium text-slate-100">
+                <p className="mt-1 break-all text-sm font-medium text-white">
                   {contact.value}
                 </p>
               </a>
@@ -77,16 +77,16 @@ export default function Contact() {
       <Card className="mt-8" hover={false}>
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.15em] text-slate-300/80">
+            <p className="text-sm uppercase tracking-[0.15em] text-slate-400">
               Preferred channel
             </p>
-            <p className="mt-2 text-base text-slate-200">
+            <p className="mt-2 text-base text-slate-300">
               Email is the fastest way to reach me for project discussions.
             </p>
           </div>
           <a
             href="mailto:rathodniraj.com@gmail.com"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-indigo-200/35 bg-gradient-to-r from-indigo-400/28 via-violet-400/22 to-slate-300/18 px-5 py-2.5 text-sm font-medium text-slate-100 transition hover:from-indigo-400/38 hover:to-slate-300/28 sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-5 py-2.5 text-sm font-medium text-white transition hover:from-indigo-400 hover:to-violet-400 sm:w-auto"
           >
             <FiSend />
             Send Email

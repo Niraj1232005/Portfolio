@@ -92,9 +92,9 @@ export const certificates: Certificate[] = [
     slug: "gcp",
   },
   {
-    title: "React Developer Certificate",
-    issuer: "Meta / Coursera",
-    image: "/certificates/aerocast.png",
+    title: "Introduction to Blockchain Technology and its Use Cases",
+    issuer: "C-DAC Hyderabad ",
+    image: "/certificates/blockchain.jpg",
     slug: "react",
   },
   {

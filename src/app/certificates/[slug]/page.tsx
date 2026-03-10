@@ -58,7 +58,7 @@ export default async function CertificatePage({ params }: Props) {
             />
           </div>
 
-          <CopyCertificateUrl slug={cert.slug} />
+          {/* <CopyCertificateUrl slug={cert.slug} /> */}
         </div>
       </div>
     </SectionContainer>

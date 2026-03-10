@@ -22,6 +22,9 @@ export const metadata = {
   icons: {
     icon: "/N.svg",
   },
+  verification: {
+    google: "GmbKQgqP05H2pvqV9d5B9tTKj0tuyTm1cYV5Kv0P40I",
+  },
 };
 
 export default function RootLayout({

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import {
   FiAward,
   FiCode,
@@ -14,9 +16,11 @@ import {
 } from "react-icons/fi";
 import { cn } from "@/lib/cn";
 
+
+
 export default function Navbar() {
   const pathname = usePathname();
-
+  const router = useRouter();
   const navItems = [
     { href: "/?intro=0", matchPath: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -26,7 +30,7 @@ export default function Navbar() {
   ];
 
   const mobileNavItems = [
-    { href: "/?intro=0", matchPath: "/", label: "Home", icon: FiHome },
+    { href: "/?intro=1", matchPath: "/", label: "Home", icon: FiHome },
     { href: "/about", label: "About", icon: FiUser },
     { href: "/projects", label: "Projects", icon: FiFolder },
     { href: "/skills", label: "Skills", icon: FiCode },
@@ -38,6 +42,23 @@ export default function Navbar() {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
+
+  useEffect(() => {
+  const handleKeyPress = (e: KeyboardEvent) => {
+    const key = e.key.toLowerCase();
+
+    if (key === "h") router.push("/?intro=0");
+    if (key === "a") router.push("/about");
+    if (key === "p") router.push("/projects");
+    if (key === "s") router.push("/skills");
+    if (key === "c") router.push("/certificates");
+    if (key === "m") router.push("/contact");
+  };
+
+  window.addEventListener("keydown", handleKeyPress);
+
+  return () => window.removeEventListener("keydown", handleKeyPress);
+}, [router]);
 
   return (
     <>

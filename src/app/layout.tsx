@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   title: "Niraj Rathod",
-  description: "Portfolio website",
+  description: "Portfolio of Niraj Rathod, an Information Technology student building scalable backend systems, cloud-native applications, and modern web experiences.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",

@@ -18,9 +18,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata = {
   title: "Niraj Rathod",
   description:
-    "Backend-focused developer building scalable systems using cloud and modern technologies.",
+    "Portfolio website",
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
   verification: {
     google: "GmbKQgqP05H2pvqV9d5B9tTKj0tuyTm1cYV5Kv0P40I",

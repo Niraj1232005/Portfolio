@@ -20,7 +20,7 @@ export const metadata = {
   description:
     "Backend-focused developer building scalable systems using cloud and modern technologies.",
   icons: {
-    icon: "/N.svg",
+    icon: "/favicon.ico",
   },
   verification: {
     google: "GmbKQgqP05H2pvqV9d5B9tTKj0tuyTm1cYV5Kv0P40I",

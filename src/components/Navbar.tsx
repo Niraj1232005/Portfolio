@@ -130,6 +130,11 @@ export default function Navbar() {
               </li>
             );
           })}
+          <li>
+            <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.94 }}>
+              <ThemeToggle className="grid h-10 w-10 place-content-center rounded-xl border border-transparent text-base transition text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]" />
+            </motion.div>
+          </li>
         </ul>
       </nav>
     </>

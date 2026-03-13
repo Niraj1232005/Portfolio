@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
+import { cn } from "@/lib/cn";
 
-export default function ThemeToggle() {
+type ThemeToggleProps = {
+  className?: string;
+};
+
+export default function ThemeToggle({ className }: ThemeToggleProps) {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -31,7 +36,10 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-  className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 text-[var(--foreground)] hover:scale-105 transition"
+      className={
+        className ||
+        "rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 text-[var(--foreground)] hover:scale-105 transition"
+      }
     >
       {dark ? <FiSun /> : <FiMoon />}
     </button>

@@ -25,7 +25,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     >
       <Card className="h-full">
         <div className="flex h-full flex-col">
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0f1117]">
+          <div className="relative overflow-hidden rounded-2xl border border-[#d8ccb8] bg-[#fff7ea]">
             <Image
               src={project.image}
               alt={project.title}
@@ -33,11 +33,11 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               height={380}
               className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1f1a14]/35 via-transparent to-transparent" />
           </div>
 
-          <h3 className="mt-5 text-xl font-semibold text-white">{project.title}</h3>
-          <p className="mt-3 text-sm leading-6 text-slate-300">{project.description}</p>
+          <h3 className="mt-5 text-xl font-semibold text-[#1f1a14]">{project.title}</h3>
+          <p className="mt-3 text-sm leading-6 text-[#665e51]">{project.description}</p>
 
           <div className="mt-5 flex flex-wrap gap-2">
             {project.tech.map((tech) => (
@@ -50,7 +50,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-slate-300 transition hover:text-white"
+              className="inline-flex items-center gap-1.5 text-[#665e51] transition hover:text-[#ff7a1a]"
             >
               <FiGithub className="text-base" />
               <span>GitHub</span>
@@ -60,7 +60,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                 href={project.live}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-slate-300 transition hover:text-indigo-200"
+                className="inline-flex items-center gap-1.5 text-[#665e51] transition hover:text-[#ff4f4f]"
               >
                 <FiExternalLink className="text-base" />
                 <span>Live Demo</span>
@@ -72,3 +72,4 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     </motion.article>
   );
 }
+

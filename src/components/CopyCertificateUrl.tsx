@@ -15,17 +15,18 @@ export default function CopyCertificateUrl({ slug }: { slug: string }) {
   };
 
   return (
-    <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 text-center backdrop-blur-md">
-      <p className="text-sm text-slate-300">
+    <div className="mt-8 flex flex-col items-center gap-3 rounded-3xl border border-[#d8ccb8] bg-[#fffaf1] px-6 py-5 text-center shadow-[0_16px_36px_-28px_rgba(31,26,20,0.28)]">
+      <p className="text-sm text-[#665e51]">
         Use this URL when adding the certificate on LinkedIn:
       </p>
       <button
         type="button"
         onClick={handleCopy}
-        className="rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-4 py-2 text-sm font-medium text-white transition hover:from-indigo-400 hover:to-violet-400"
+        className="rounded-xl bg-gradient-to-r from-[#ff7a1a] via-[#ff9f1c] to-[#ff4f4f] px-4 py-2 text-sm font-medium text-[#1f1a14] transition hover:scale-[1.02] hover:shadow-[0_16px_30px_-20px_rgba(255,79,79,0.62)]"
       >
         {copied ? "Copied!" : "Copy certificate URL"}
       </button>
     </div>
   );
 }
+

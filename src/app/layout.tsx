@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   title: "Niraj Rathod",
-  description: "Portfolio website",
+  description: "Portfolio of Niraj Rathod, an Information Technology student building scalable backend systems, cloud-native applications, and modern web experiences.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} min-h-screen bg-[#0a0a0f] text-slate-300 antialiased`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} min-h-screen bg-[#f7f4ed] text-[#665e51] antialiased`}
       >
         {/* Structured Data for Google */}
         <script
@@ -61,3 +61,4 @@ export default function RootLayout({
     </html>
   );
 }
+

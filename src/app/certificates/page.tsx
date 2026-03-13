@@ -13,8 +13,8 @@ import { certificates } from "@/data/content";
 export default function Certificates() {
   return (
     <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-      <div className="relative overflow-hidden rounded-[2rem] border border-[#d8ccb8] bg-[#fffaf1]/95 p-5 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8">
-        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(216,204,184,0.58)_1px,transparent_1px),linear-gradient(90deg,rgba(216,204,184,0.58)_1px,transparent_1px)] [background-size:32px_32px]" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-5 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8 dark:shadow-none">
+        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:32px_32px]" />
         <AnimatedHeading
           level="h1"
           eyebrow="Certificates"
@@ -35,7 +35,7 @@ export default function Certificates() {
               transition={{ delay: index * 0.07 }}
             >
               <Card className="h-full">
-                <div className="overflow-hidden rounded-2xl border border-[#d8ccb8] bg-[#fff6e7]">
+                <div className="overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)]">
                   <Image
                     src={certificate.image}
                     alt={certificate.title}
@@ -45,14 +45,14 @@ export default function Certificates() {
                   />
                 </div>
 
-                <h2 className="mt-5 text-lg font-semibold text-[#1f1a14]">
+                <h2 className="mt-5 text-lg font-semibold text-[var(--foreground)]">
                   {certificate.title}
                 </h2>
-                <p className="mt-2 text-sm text-[#665e51]">{certificate.issuer}</p>
+                <p className="mt-2 text-sm text-[var(--foreground)]/80">{certificate.issuer}</p>
 
                 <Link
                   href={`/certificates/${certificate.slug}`}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm text-[#665e51] transition hover:text-[#ff7a1a]"
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm text-[var(--foreground)]/80 transition hover:text-[#ff7a1a]"
                 >
                   View credential
                   <FiArrowRight />

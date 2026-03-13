@@ -38,7 +38,7 @@ export default function AnimatedHeading({
       className={cn(align === "center" ? "text-center" : "text-left", className)}
     >
       {eyebrow ? (
-        <p className="mb-3 inline-flex items-center rounded-full border border-[#d8ccb8] bg-[#fff4e0] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a65713]">
+        <p className="mb-3 inline-flex items-center rounded-full border border-[var(--surface-border)] bg-[#fff4e0] dark:bg-[#fff4e0]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a65713] dark:text-[var(--accent)]">
           {eyebrow}
         </p>
       ) : null}
@@ -46,8 +46,8 @@ export default function AnimatedHeading({
         className={cn(
           "text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl",
           gradientTitle
-            ? "bg-gradient-to-r from-[#1f1a14] via-[#ff7a1a] to-[#ff4f4f] bg-clip-text text-transparent"
-            : "text-[#1f1a14]",
+            ? "bg-gradient-to-r from-[var(--foreground)] via-[#ff7a1a] to-[#ff4f4f] bg-clip-text text-transparent"
+            : "text-[var(--foreground)]",
           titleClassName
         )}
       >
@@ -56,7 +56,7 @@ export default function AnimatedHeading({
       {subtitle ? (
         <p
           className={cn(
-            "mt-4 max-w-2xl text-sm leading-7 text-[#665e51] sm:text-base",
+            "mt-4 max-w-2xl text-sm leading-7 text-[var(--foreground)]/80 sm:text-base",
             align === "center" ? "mx-auto" : "",
             subtitleClassName
           )}

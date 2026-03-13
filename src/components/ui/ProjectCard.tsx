@@ -25,7 +25,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
     >
       <Card className="h-full">
         <div className="flex h-full flex-col">
-          <div className="relative overflow-hidden rounded-2xl border border-[#d8ccb8] bg-[#fff7ea]">
+          <div className="relative overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)]">
             <Image
               src={project.image}
               alt={project.title}
@@ -36,8 +36,8 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1f1a14]/35 via-transparent to-transparent" />
           </div>
 
-          <h3 className="mt-5 text-xl font-semibold text-[#1f1a14]">{project.title}</h3>
-          <p className="mt-3 text-sm leading-6 text-[#665e51]">{project.description}</p>
+          <h3 className="mt-5 text-xl font-semibold text-[var(--foreground)]">{project.title}</h3>
+          <p className="mt-3 text-sm leading-6 text-[var(--foreground)]/80">{project.description}</p>
 
           <div className="mt-5 flex flex-wrap gap-2">
             {project.tech.map((tech) => (
@@ -50,7 +50,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[#665e51] transition hover:text-[#ff7a1a]"
+              className="inline-flex items-center gap-1.5 text-[var(--foreground)]/80 transition hover:text-[#ff7a1a]"
             >
               <FiGithub className="text-base" />
               <span>GitHub</span>
@@ -60,7 +60,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                 href={project.live}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#665e51] transition hover:text-[#ff4f4f]"
+                className="inline-flex items-center gap-1.5 text-[var(--foreground)]/80 transition hover:text-[#ff4f4f]"
               >
                 <FiExternalLink className="text-base" />
                 <span>Live Demo</span>

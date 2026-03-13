@@ -22,13 +22,13 @@ export default function About() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="relative mt-8 overflow-hidden rounded-[2rem] border border-[#d8ccb8] bg-[#fffaf1]/95 p-6 shadow-[0_30px_68px_-50px_rgba(31,26,20,0.4)] sm:mt-10 sm:p-10"
+        className="relative mt-8 overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-6 shadow-[0_30px_68px_-50px_rgba(31,26,20,0.4)] sm:mt-10 sm:p-10 dark:shadow-none"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(216,204,184,0.55)_1px,transparent_1px),linear-gradient(90deg,rgba(216,204,184,0.55)_1px,transparent_1px)] [background-size:30px_30px]" />
-        <div className="pointer-events-none absolute -right-8 top-8 h-14 w-14 rounded-full border-2 border-dashed border-[#ff4f4f]/45 bg-[#ffe2df]/65 animate-float-slow" />
-        <div className="pointer-events-none absolute -left-5 bottom-8 h-12 w-12 rounded-xl border border-[#d8ccb8] bg-[#ecfccb]/75 animate-drift-spin" />
+        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:30px_30px]" />
+        <div className="pointer-events-none absolute -right-8 top-8 h-14 w-14 rounded-full border-2 border-dashed border-[#ff4f4f]/45 bg-[#ffe2df]/65 animate-float-slow dark:bg-[#ffe2df]/10" />
+        <div className="pointer-events-none absolute -left-5 bottom-8 h-12 w-12 rounded-xl border border-[var(--surface-border)] bg-[#ecfccb]/75 animate-drift-spin dark:bg-[#ecfccb]/10" />
         <div className="relative z-10 grid gap-8 ">
-          <div className="space-y-4 text-sm leading-7 text-[#665e51] sm:space-y-5 sm:text-base sm:leading-8">
+          <div className="space-y-4 text-sm leading-7 text-[var(--foreground)]/80 sm:space-y-5 sm:text-base sm:leading-8">
             <p>
               I am an Information Technology student at Vidyalankar Institute
               of Technology, focused on building dependable products with clean

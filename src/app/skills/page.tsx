@@ -71,8 +71,8 @@ const skillIcons: Record<string, ReactNode> = {
 export default function Skills() {
   return (
     <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-      <div className="relative overflow-hidden rounded-[2rem] border border-[#d8ccb8] bg-[#fffaf1]/95 p-5 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8">
-        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(216,204,184,0.58)_1px,transparent_1px),linear-gradient(90deg,rgba(216,204,184,0.58)_1px,transparent_1px)] [background-size:32px_32px]" />
+      <div className="relative overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-5 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8 dark:shadow-none">
+        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:32px_32px]" />
         <AnimatedHeading
           level="h1"
           eyebrow="Skills"
@@ -93,7 +93,7 @@ export default function Skills() {
               transition={{ delay: index * 0.06 }}
             >
               <Card className="h-full">
-                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8a7f6e]">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]/60">
                   {category.title}
                 </h2>
                 <div className="mt-4 flex flex-wrap gap-2.5">

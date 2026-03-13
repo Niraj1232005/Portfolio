@@ -30,13 +30,13 @@ const primaryButtonClass =
   "inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#f3a35f] bg-gradient-to-r from-[#ff7a1a] via-[#ff9f1c] to-[#ff4f4f] px-5 py-3 text-sm font-semibold text-[#1f1a14] transition hover:-translate-y-0.5 hover:shadow-[0_20px_34px_-22px_rgba(255,79,79,0.78)] sm:w-auto";
 
 const secondaryButtonClass =
-  "inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#d8ccb8] bg-[#fff7ea] px-5 py-3 text-sm font-medium text-[#665e51] transition hover:-translate-y-0.5 hover:border-[#ff7a1a]/55 hover:bg-[#fff1e0] hover:text-[#1f1a14] sm:w-auto";
+  "inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] px-5 py-3 text-sm font-medium text-[var(--foreground)]/80 transition hover:-translate-y-0.5 hover:border-[#ff7a1a]/55 hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)] sm:w-auto";
 
 const accentLinkClass =
-  "inline-flex items-center gap-1.5 text-sm font-medium text-[#665e51] transition hover:text-[#ff7a1a]";
+  "inline-flex items-center gap-1.5 text-sm font-medium text-[var(--foreground)]/80 transition hover:text-[#ff7a1a]";
 
 const sectionPanelClass =
-  "relative overflow-hidden rounded-[2rem] border border-[#d8ccb8] bg-[#fffaf1]/95 p-5 shadow-[0_28px_72px_-52px_rgba(31,26,20,0.42)] sm:p-8";
+  "relative overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-5 shadow-[0_28px_72px_-52px_rgba(31,26,20,0.42)] sm:p-8 dark:shadow-none";
 
 export default function Home() {
   return (
@@ -104,10 +104,10 @@ function HomeContent() {
     <div className="pb-12 pt-8 sm:pb-16 sm:pt-14 md:pt-20">
       <SectionContainer className="pb-8 pt-8 sm:pb-12 sm:pt-14">
         <div className={`${sectionPanelClass} lg:p-10`}>
-          <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(rgba(216,204,184,0.7)_1px,transparent_1px),linear-gradient(90deg,rgba(216,204,184,0.7)_1px,transparent_1px)] [background-size:28px_28px]" />
-          <div className="pointer-events-none absolute -left-10 top-8 h-20 w-20 rounded-2xl border border-[#d8ccb8] bg-[#ecfccb]/75 animate-sway-tilt" />
-          <div className="pointer-events-none absolute right-8 top-10 h-14 w-14 rounded-full border-2 border-dashed border-[#ff4f4f]/45 bg-[#ffd9d9]/50 animate-float-medium" />
-          <div className="pointer-events-none absolute bottom-8 right-12 hidden h-12 w-12 rotate-12 rounded-lg border border-[#d8ccb8] bg-[#fff1de] animate-drift-spin sm:block" />
+          <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:28px_28px]" />
+          <div className="pointer-events-none absolute -left-10 top-8 h-20 w-20 rounded-2xl border border-[var(--surface-border)] bg-[#ecfccb]/75 animate-sway-tilt dark:bg-[#ecfccb]/10" />
+          <div className="pointer-events-none absolute right-8 top-10 h-14 w-14 rounded-full border-2 border-dashed border-[#ff4f4f]/45 bg-[#ffd9d9]/50 animate-float-medium dark:bg-[#ffd9d9]/10" />
+          <div className="pointer-events-none absolute bottom-8 right-12 hidden h-12 w-12 rotate-12 rounded-lg border border-[var(--surface-border)] bg-[#fff1de] animate-drift-spin sm:block dark:bg-[#fff1de]/10" />
 
           {heroParticles.map((particle) => (
             <motion.span
@@ -123,7 +123,7 @@ function HomeContent() {
                 ease: "easeInOut",
                 delay: particle.delay,
               }}
-              className="pointer-events-none absolute h-2 w-2 rounded-[2px] bg-[#a65713]/45"
+              className="pointer-events-none absolute h-2 w-2 rounded-[2px] bg-[#a65713]/45 dark:bg-[var(--accent)]/45"
               style={{ top: particle.top, left: particle.left }}
             />
           ))}
@@ -136,13 +136,13 @@ function HomeContent() {
           >
             {/* LEFT TEXT */}
             <div className="space-y-6 text-left">
-              <motion.p variants={fadeInUp} className="text-sm text-[#665e51]">
+              <motion.p variants={fadeInUp} className="text-sm text-[var(--foreground)]/80">
                 Interactive Developer Portfolio
               </motion.p>
 
               <motion.h1
                 variants={fadeInUp}
-                className="text-5xl font-bold tracking-tight text-[#1f1a14] sm:text-6xl lg:text-7xl"
+                className="text-5xl font-bold tracking-tight text-[var(--foreground)] sm:text-6xl lg:text-7xl"
               >
                 Niraj Rathod
               </motion.h1>
@@ -158,7 +158,7 @@ function HomeContent() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -18 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="text-base font-medium text-[#665e51] sm:text-lg"
+                    className="text-base font-medium text-[var(--foreground)]/80 sm:text-lg"
                   >
                     {subtitleLines[subtitleIndex]}
                   </motion.p>
@@ -167,7 +167,7 @@ function HomeContent() {
 
               <motion.p
                 variants={fadeInUp}
-                className="max-w-2xl text-sm leading-7 text-[#665e51] sm:text-base"
+                className="max-w-2xl text-sm leading-7 text-[var(--foreground)]/80 sm:text-base"
               >
                 Information Technology student at Vidyalankar Institute of
                 Technology, focused on cloud-ready architecture, reliable APIs,
@@ -206,30 +206,30 @@ function HomeContent() {
               className="flex justify-center lg:justify-end"
             >
               <div className="relative w-full max-w-sm">
-                <div className="rounded-3xl border border-[#d8ccb8] bg-[#fff6e7] p-6 shadow-[0_26px_50px_-36px_rgba(31,26,20,0.44)]">
-                  <p className="text-xs uppercase tracking-[0.14em] text-[#8a7f6e]">
+                <div className="rounded-3xl border border-[var(--surface-border)] bg-[var(--surface)] p-6 shadow-[0_26px_50px_-36px_rgba(31,26,20,0.44)] dark:shadow-none">
+                  <p className="text-xs uppercase tracking-[0.14em] text-[var(--foreground)]/60">
                     Focus
                   </p>
 
-                  <p className="mt-2 text-lg font-semibold text-[#1f1a14]">
+                  <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">
                     Backend Engineering
                   </p>
 
                   <div className="mt-5 space-y-3">
-                    <div className="rounded-xl border border-[#d8ccb8] bg-[#fffaf1] px-4 py-3">
-                      <p className="text-sm font-medium text-[#1f1a14]">
+                    <div className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-3">
+                      <p className="text-sm font-medium text-[var(--foreground)]">
                         Cloud Architecture
                       </p>
                     </div>
 
-                    <div className="rounded-xl border border-[#d8ccb8] bg-[#fffaf1] px-4 py-3">
-                      <p className="text-sm font-medium text-[#1f1a14]">
+                    <div className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-3">
+                      <p className="text-sm font-medium text-[var(--foreground)]">
                         API Systems
                       </p>
                     </div>
 
-                    <div className="rounded-xl border border-[#d8ccb8] bg-[#fffaf1] px-4 py-3">
-                      <p className="text-sm font-medium text-[#1f1a14]">
+                    <div className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-3">
+                      <p className="text-sm font-medium text-[var(--foreground)]">
                         Full Stack Products
                       </p>
                     </div>
@@ -237,9 +237,9 @@ function HomeContent() {
                 </div>
 
                 {/* floating decorative shapes */}
-                <div className="pointer-events-none absolute -bottom-5 -left-6 h-16 w-16 rounded-2xl border border-[#d8ccb8] bg-[#ecfccb]/70 animate-float-fast" />
+                <div className="pointer-events-none absolute -bottom-5 -left-6 h-16 w-16 rounded-2xl border border-[var(--surface-border)] bg-[#ecfccb]/70 animate-float-fast dark:bg-[#ecfccb]/10" />
 
-                <div className="pointer-events-none absolute -right-5 -top-5 h-12 w-12 rounded-full border-2 border-dashed border-[#ff7a1a]/45 bg-[#ffe2cc] animate-float-medium" />
+                <div className="pointer-events-none absolute -right-5 -top-5 h-12 w-12 rounded-full border-2 border-dashed border-[#ff7a1a]/45 bg-[#ffe2cc] animate-float-medium dark:bg-[#ffe2cc]/10" />
               </div>
             </motion.div>
           </motion.div>
@@ -287,7 +287,7 @@ function HomeContent() {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {skillCategories.map((category) => (
               <Card key={category.title}>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-[#8a7f6e]">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--foreground)]/60">
                   {category.title}
                 </h3>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -320,10 +320,10 @@ function HomeContent() {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {certificates.map((certificate) => (
               <Card key={certificate.slug}>
-                <p className="text-lg font-semibold text-[#1f1a14]">
+                <p className="text-lg font-semibold text-[var(--foreground)]">
                   {certificate.title}
                 </p>
-                <p className="mt-2 text-sm text-[#665e51]">
+                <p className="mt-2 text-sm text-[var(--foreground)]/80">
                   {certificate.issuer}
                 </p>
                 <Link
@@ -348,9 +348,9 @@ function HomeContent() {
               className="max-w-2xl"
             />
           </div>
-          <Card hover={false} className="bg-[#fff6e7]">
+          <Card hover={false} className="bg-[var(--surface)]">
             <div className="flex flex-col items-center gap-4 text-center sm:gap-5 md:flex-row md:items-center md:justify-between md:text-left">
-              <p className="max-w-3xl text-sm leading-7 text-[#665e51] sm:text-base">
+              <p className="max-w-3xl text-sm leading-7 text-[var(--foreground)]/80 sm:text-base">
                 Download the latest version of my resume in PDF format.
               </p>
               <a
@@ -381,13 +381,13 @@ function HomeContent() {
               <FiArrowRight />
             </Link>
           </div>
-          <Card hover={false} className="bg-[#fff6e7]">
+          <Card hover={false} className="bg-[var(--surface)]">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-2xl text-sm leading-7 text-[#665e51] sm:text-base">
+              <p className="max-w-2xl text-sm leading-7 text-[var(--foreground)]/80 sm:text-base">
                 Quick ways to reach me for internships, freelance work, and
                 backend engineering collaborations.
               </p>
-              <div className="flex flex-col gap-2.5 text-sm text-[#665e51] sm:flex-row sm:flex-wrap sm:gap-3">
+              <div className="flex flex-col gap-2.5 text-sm text-[var(--foreground)]/80 sm:flex-row sm:flex-wrap sm:gap-3">
                 <a
                   href="mailto:rathodniraj.com@gmail.com"
                   className={secondaryButtonClass}

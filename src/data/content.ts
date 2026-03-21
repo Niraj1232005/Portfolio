@@ -9,6 +9,23 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "ReportForge",
+    description:
+      "A full-stack document editor that enables users to create professional reports using structured templates, real-time A4 preview, and one-click DOCX export. Features a block-based editor, admin-controlled templates, dynamic styling, and Supabase-powered persistence.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Flask",
+      "Python",
+      "Supabase",
+      "TipTap Editor",
+    ],
+    github: "https://github.com/Niraj1232005/reportforge.git",
+    // live: "https://YOUR_DEPLOY_LINK",
+    image: "/projects/report.png",
+  },
+  {
     title: "BookAlchemy",
     description:
       "ML-powered recommendation engine for discovering books through collaborative filtering and a polished Streamlit experience.",
@@ -86,22 +103,22 @@ export type Certificate = {
 
 export const certificates: Certificate[] = [
   {
-    title: "Google Cloud Certification",
-    issuer: "Google Cloud",
-    image: "/certificates/gcp.png",
-    slug: "gcp",
+    title: "Cloud Computing",
+    issuer: "C-DAC Pune",
+    image: "/certificates/cloud.jpeg",
+    slug: "cloud",
   },
   {
     title: "Introduction to Blockchain Technology and its Use Cases",
     issuer: "C-DAC Hyderabad ",
     image: "/certificates/blockchain.jpg",
-    slug: "react",
+    slug: "blockchain",
   },
   {
-    title: "Cloud Fundamentals",
-    issuer: "Google",
-    image: "/certificates/gcp.png",
-    slug: "cloud",
+    title: "Computer Architecture: Digital Logic Circuits",
+    issuer: "Great Learning Academy",
+    image: "/certificates/digitalcircuit.png",
+    slug: "logicCircuit",
   },
 ];
 

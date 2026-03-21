@@ -260,7 +260,7 @@ function HomeContent() {
             </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project, index) => (
+            {projects.slice(0, 3).map((project, index) => (
               <ProjectCard
                 key={project.title}
                 project={project}

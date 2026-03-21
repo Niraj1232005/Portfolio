@@ -43,14 +43,14 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
+      if (!e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
 
-      if (key === "h") router.push("/?intro=0");
-      if (key === "a") router.push("/about");
-      if (key === "p") router.push("/projects");
-      if (key === "s") router.push("/skills");
-      if (key === "c") router.push("/certificates");
-      if (key === "m") router.push("/contact");
+      if (e.key === "H") router.push("/?intro=0");
+      if (e.key === "A") router.push("/about");
+      if (e.key === "P") router.push("/projects");
+      if (e.key === "S") router.push("/skills");
+      if (e.key === "C") router.push("/certificates");
+      if (e.key === "M") router.push("/contact");
     };
 
     window.addEventListener("keydown", handleKeyPress);
@@ -80,7 +80,7 @@ export default function Navbar() {
                       "rounded-xl border border-transparent px-3 py-2 transition duration-200",
                       isActive(item.matchPath ?? item.href)
                         ? "border-[#ff7a1a]/45 bg-[var(--surface-border)]/30 text-[var(--foreground)] shadow-[0_18px_36px_-24px_rgba(255,122,26,0.65)] dark:shadow-[0_18px_36px_-24px_rgba(255,122,26,0.2)]"
-                        : "text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]"
+                        : "text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]",
                     )}
                   >
                     {item.label}
@@ -120,7 +120,7 @@ export default function Navbar() {
                       "grid h-10 w-10 place-content-center rounded-xl border border-transparent text-base transition",
                       active
                         ? "bg-gradient-to-r from-[#ff7a1a] to-[#ff4f4f] text-[var(--foreground)] shadow-[0_14px_28px_-20px_rgba(255,79,79,0.75)] dark:shadow-[0_14px_28px_-20px_rgba(255,79,79,0.2)]"
-                        : "text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]"
+                        : "text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]",
                     )}
                   >
                     <Icon />
@@ -140,4 +140,3 @@ export default function Navbar() {
     </>
   );
 }
-

@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} min-h-screen bg-[#0a0a0f] text-slate-300 antialiased`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} min-h-screen bg-[#f7f4ed] text-[#665e51] antialiased`}
       >
         {/* Structured Data for Google */}
         <script
@@ -61,3 +61,4 @@ export default function RootLayout({
     </html>
   );
 }
+

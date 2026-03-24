@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import GlowBackground from "@/components/ui/GlowBackground";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"; 
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default function RootLayout({
         <GlowBackground />
         <Navbar />
         <main className="relative z-10 pb-24 md:pb-0">{children}</main>
+        <Analytics />
       </body>
     </html>
   );

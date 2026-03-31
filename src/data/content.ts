@@ -22,7 +22,7 @@ export const projects: Project[] = [
       "TipTap Editor",
     ],
     github: "https://github.com/Niraj1232005/reportforge.git",
-    // live: "https://YOUR_DEPLOY_LINK",
+    live: "https://reportforge-neon.vercel.app",
     image: "/projects/report.png",
   },
   {
@@ -44,6 +44,14 @@ export const projects: Project[] = [
     image: "/projects/book.png",
   },
   {
+    title: "Voynex",
+    description:
+      "AI-assisted travel planning app that generates personalized packing lists from user preferences and trip context.",
+    tech: ["Next.js", "TypeScript", "Node.js", "AI"],
+    github: "https://github.com/Niraj1232005/voynex",
+    image: "/projects/travel.png",
+  },
+  {
     title: "AeroCast",
     description:
       "Real-time weather platform with API integrations, clean architecture, Dockerized deployments, and CI/CD automation.",
@@ -51,14 +59,6 @@ export const projects: Project[] = [
     github: "https://github.com/Niraj1232005/AeroCast.git",
     live: "https://aerocast-docker.onrender.com/",
     image: "/projects/aerocast.png",
-  },
-  {
-    title: "Voynex",
-    description:
-      "AI-assisted travel planning app that generates personalized packing lists from user preferences and trip context.",
-    tech: ["Next.js", "TypeScript", "Node.js", "AI"],
-    github: "https://github.com/Niraj1232005/voynex",
-    image: "/projects/travel.png",
   },
 ];
 

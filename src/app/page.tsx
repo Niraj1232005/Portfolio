@@ -10,6 +10,8 @@ import {
   FiGithub,
   FiMail,
   FiPhone,
+  FiEye,
+  FiFileText,
 } from "react-icons/fi";
 import Intro from "@/components/Intro";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
@@ -340,33 +342,51 @@ function HomeContent() {
       </SectionContainer>
 
       <SectionContainer className="py-8 sm:py-10">
-        <div className={sectionPanelClass}>
-          <div className="mb-6 sm:mb-8">
-            <AnimatedHeading
-              title="Resume"
-              subtitle="Grab a concise overview of education, engineering projects, and backend-first experience."
-              className="max-w-2xl"
-            />
-          </div>
-          <Card hover={false} className="bg-[var(--surface)]">
-            <div className="flex flex-col items-center gap-4 text-center sm:gap-5 md:flex-row md:items-center md:justify-between md:text-left">
-              <p className="max-w-3xl text-sm leading-7 text-[var(--foreground)]/80 sm:text-base">
-                Download the latest version of my resume in PDF format.
-              </p>
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noreferrer"
-                download
-                className={`${primaryButtonClass} max-w-xs shrink-0 sm:max-w-none`}
-              >
-                <FiDownload />
-                Download Resume
-              </a>
-            </div>
-          </Card>
+  <div className={sectionPanelClass}>
+    <div className="mb-6 sm:mb-8">
+      <AnimatedHeading
+        title="Resume"
+        subtitle="Grab a concise overview of education, engineering projects, and backend-first experience."
+        className="max-w-2xl"
+      />
+    </div>
+
+    <Card hover={false} className="bg-[var(--surface)]">
+      <div className="flex flex-col items-center gap-4 text-center sm:gap-5 md:flex-row md:items-center md:justify-between md:text-left">
+        
+        <p className="max-w-3xl text-sm leading-7 text-[var(--foreground)]/80 sm:text-base">
+          View the latest version of my resume in PDF format.
+        </p>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+          
+          {/* View Resume */}
+          <a
+            href="/nirajrathod_resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className={`${primaryButtonClass} max-w-xs shrink-0 sm:max-w-none`}
+          >
+            <FiFileText />
+            View Resume
+          </a>
+
+          {/* Download Resume
+          <a
+            href="/nirajrathod_resume.pdf"
+            download
+            className={`${primaryButtonClass} max-w-xs shrink-0 sm:max-w-none`}
+          >
+            <FiDownload />
+            Download
+          </a> */}
+
         </div>
-      </SectionContainer>
+
+      </div>
+    </Card>
+  </div>
+</SectionContainer>
 
       <SectionContainer className="py-8 sm:py-10">
         <div className={sectionPanelClass}>

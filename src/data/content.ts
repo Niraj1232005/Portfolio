@@ -161,11 +161,6 @@ export const contactMethods: ContactMethod[] = [
     href: "https://linkedin.com/in/niraj14",
   },
   {
-    label: "X",
-    value: "x.com/NirajRatho91596",
-    href: "https://x.com/NirajRatho91596",
-  },
-  {
     label: "Peerlist",
     value: "peerlist.io/rathodniraj2004",
     href: "https://peerlist.io/rathodniraj2004",

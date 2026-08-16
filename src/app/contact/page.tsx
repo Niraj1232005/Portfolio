@@ -1,101 +1,124 @@
 "use client";
 
-import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import {
+  FiArrowUpRight,
   FiGithub,
   FiLinkedin,
   FiMail,
   FiPhone,
-  FiSend,
   FiUser,
 } from "react-icons/fi";
-import { RiTwitterXLine } from "react-icons/ri";
-import { BsGlobe2 } from "react-icons/bs";
-import AnimatedHeading from "@/components/ui/AnimatedHeading";
-import Card from "@/components/ui/Card";
-import SectionContainer from "@/components/ui/SectionContainer";
-import { fadeInUp } from "@/components/ui/motion";
 import { contactMethods } from "@/data/content";
 
-const iconMap: Record<string, ReactNode> = {
-  Phone: <FiPhone />,
-  Email: <FiMail />,
-  "College Email": <FiUser />,
-  GitHub: <FiGithub />,
-  LinkedIn: <FiLinkedin />,
-  X: <RiTwitterXLine />,
-  Peerlist: <BsGlobe2 />,
+const methodIcons: Record<string, typeof FiMail> = {
+  Phone: FiPhone,
+  Email: FiMail,
+  "College Email": FiUser,
+  GitHub: FiGithub,
+  LinkedIn: FiLinkedin,
+  Peerlist: FiArrowUpRight,
 };
 
-export default function Contact() {
+export default function ContactPage() {
   return (
-    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-      <div className="relative overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-5 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8 dark:shadow-none">
-        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:32px_32px]" />
-        <AnimatedHeading
-          level="h1"
-          eyebrow="Contact"
-          title="Let's Build Something Useful"
-          subtitle="Open to internships, freelance opportunities, and technical collaborations."
-          gradientTitle
-          className="relative z-10 max-w-3xl"
-        />
+    <div className="min-h-screen px-6 sm:px-12 lg:px-20 pt-32 sm:pt-40 pb-24 max-w-6xl mx-auto">
+      {/* Header Section Marker */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="flex items-center justify-between border-b border-black/[0.08] dark:border-white/[0.08] pb-6 mb-16"
+      >
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+          05 // Direct Contact
+        </span>
+        <span className="font-mono text-xs text-zinc-400 dark:text-zinc-600">
+          GET IN TOUCH
+        </span>
+      </motion.div>
 
-        <div className="relative z-10 mt-8 grid gap-6 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
-          {contactMethods.map((contact, index) => (
-            <motion.div
-              key={contact.label}
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: index * 0.05 }}
+      {/* Massive Editorial Closing Typography */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-4xl space-y-6 mb-16"
+      >
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-[#0a0a0a] dark:text-[#f2f2f2] leading-[0.92]">
+          Let&apos;s build
+          <br />
+          <span className="text-zinc-400 dark:text-zinc-600 hover:text-black dark:hover:text-white transition-colors duration-400">
+            something useful.
+          </span>
+        </h1>
+        <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-light max-w-xl leading-relaxed">
+          Open to software engineering internships, backend architecture collaborations, and technical discussions.
+        </p>
+      </motion.div>
+
+      {/* Clean Contact Channels Grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 border-t border-black/[0.08] dark:border-white/[0.08] pt-12"
+      >
+        {contactMethods.map((method) => {
+          const Icon = methodIcons[method.label] || FiArrowUpRight;
+          const isExternal = method.href.startsWith("http");
+
+          return (
+            <a
+              key={method.label}
+              href={method.href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noreferrer" : undefined}
+              className="group p-5 rounded-xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 bg-black/[0.015] dark:bg-white/[0.015] hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all duration-200 flex items-center justify-between"
             >
-              <Card className="h-full p-0">
-                <a
-                  href={contact.href}
-                  target={contact.href.startsWith("http") ? "_blank" : undefined}
-                  rel={contact.href.startsWith("http") ? "noreferrer" : undefined}
-                  className="block h-full rounded-3xl p-4"
-                >
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--surface-border)] bg-[var(--surface-border)]/20 text-sm text-[#a65713] dark:text-[var(--accent)]">
-                    {iconMap[contact.label]}
+              <div className="flex items-center gap-3.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-black/10 dark:border-white/10 text-zinc-600 dark:text-zinc-400 group-hover:text-black dark:group-hover:text-white transition">
+                  <Icon className="text-sm" />
+                </span>
+                <div>
+                  <span className="block font-mono text-[10px] uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+                    {method.label}
                   </span>
+                  <span className="block text-sm font-medium text-zinc-800 dark:text-zinc-200 group-hover:text-black dark:group-hover:text-white transition">
+                    {method.value}
+                  </span>
+                </div>
+              </div>
+              <FiArrowUpRight className="text-zinc-400 dark:text-zinc-600 group-hover:text-black dark:group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          );
+        })}
+      </motion.div>
 
-                  <p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-[var(--foreground)]/60">
-                    {contact.label}
-                  </p>
-
-                  <p className="mt-1 break-all text-sm font-medium text-[var(--foreground)]">
-                    {contact.value}
-                  </p>
-                </a>
-              </Card>
-            </motion.div>
-          ))}
+      {/* Quick Direct Email Action */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        className="mt-12 p-6 sm:p-8 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+      >
+        <div>
+          <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+            Direct Reach
+          </span>
+          <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 font-light mt-1">
+            Email is the quickest channel to discuss engineering roles and projects.
+          </p>
         </div>
 
-        <Card className="relative z-10 mt-8 bg-[var(--surface)]" hover={false}>
-          <div className="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[var(--foreground)]/60">
-                Preferred channel
-              </p>
-              <p className="mt-2 text-base text-[var(--foreground)]/80">
-                Email is the fastest way to reach me for project discussions.
-              </p>
-            </div>
-            <a
-              href="mailto:rathodniraj.com@gmail.com"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#ff7a1a] via-[#ff9f1c] to-[#ff4f4f] px-5 py-3 text-sm font-semibold text-[#1f1a14] transition hover:-translate-y-0.5 hover:shadow-[0_20px_34px_-22px_rgba(255,79,79,0.78)] sm:w-auto"
-            >
-              <FiSend />
-              Send Email
-            </a>
-          </div>
-        </Card>
-      </div>
-    </SectionContainer>
+        <a
+          href="mailto:rathodniraj.com@gmail.com"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-black text-white dark:bg-white dark:text-black px-6 py-3 text-xs font-mono tracking-wider font-medium hover:opacity-85 transition shrink-0"
+        >
+          <FiMail />
+          <span>rathodniraj.com@gmail.com</span>
+        </a>
+      </motion.div>
+    </div>
   );
 }

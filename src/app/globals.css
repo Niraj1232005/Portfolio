@@ -1,46 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f1ea;
-  --foreground: #141414;
+  --background: #fafafa;
+  --foreground: #0a0a0a;
 
-  --surface: #fffaf1;
-  --surface-border: #d8d2c6;
+  --surface: #ffffff;
+  --surface-border: #e5e5e5;
 
-  --accent: #ff7a18;
-  --accent-secondary: #0ea5e9;
+  --accent: #171717;
+  --accent-secondary: #525252;
 
-  --grid: rgba(200,195,182,0.45);
+  --grid: rgba(0, 0, 0, 0.04);
 
-  --bg-grad1: #f4f1ea;
-  --bg-grad2: #ebe5da;
-  --bg-grad3: #f7f4ed;
+  --bg-grad1: #fafafa;
+  --bg-grad2: #f4f4f5;
+  --bg-grad3: #fafafa;
 
-  --glow1: rgba(255,122,24,0.18);
-  --glow2: rgba(14,165,233,0.16);
-  --glow3: rgba(34,197,94,0.14);
+  --glow1: rgba(0, 0, 0, 0.02);
+  --glow2: rgba(0, 0, 0, 0.02);
+  --glow3: rgba(0, 0, 0, 0.01);
 }
 
 .dark {
-  --background: #0B0E14;
-  --foreground: #F8FAFC;
+  --background: #050505;
+  --foreground: #f2f2f2;
 
-  --surface: #151822;
-  --surface-border: #2A2F42;
+  --surface: #0c0c0e;
+  --surface-border: #1f1f24;
 
-  --accent: #ff7a18;
-  --accent-secondary: #38bdf8;
+  --accent: #f2f2f2;
+  --accent-secondary: #a1a1aa;
 
-  --grid: rgba(255,255,255,0.035);
+  --grid: rgba(255, 255, 255, 0.03);
 
-  --bg-grad1: #0B0E14;
-  --bg-grad2: #11151E;
-  --bg-grad3: #0F131B;
+  --bg-grad1: #050505;
+  --bg-grad2: #08080a;
+  --bg-grad3: #050505;
 
-  --glow1: rgba(255,122,24,0.06);
-  --glow2: rgba(14,165,233,0.05);
-  --glow3: rgba(34,197,94,0.04);
+  --glow1: rgba(255, 255, 255, 0.03);
+  --glow2: rgba(255, 255, 255, 0.02);
+  --glow3: rgba(255, 255, 255, 0.01);
 }
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -52,16 +53,6 @@ body {
   position: relative;
   min-height: 100vh;
   background-color: var(--background);
-  background-image:
-  radial-gradient(circle at 8% 10%, var(--glow1), transparent 32%),
-  radial-gradient(circle at 88% 12%, var(--glow2), transparent 34%),
-  radial-gradient(circle at 72% 88%, var(--glow3), transparent 32%),
-  linear-gradient(
-    160deg,
-    var(--bg-grad1) 0%,
-    var(--bg-grad2) 50%,
-    var(--bg-grad3) 100%
-  );
   color: var(--foreground);
   font-family:
     var(--font-space-grotesk),
@@ -77,134 +68,17 @@ body {
 
 a {
   transition:
-    color 0.22s ease,
-    opacity 0.22s ease,
-    transform 0.22s ease;
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 ::selection {
-  background: rgba(255, 122, 24, 0.35);
-  color: #000;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-  pointer-events: none;
-  opacity: 0.42;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 34px 34px;
-  animation: grid-pan 24s linear infinite;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image: radial-gradient(
-    rgba(102, 94, 81, 0.22) 0.8px,
-    transparent 0.8px
-  );
-  background-size: 24px 24px;
-  mask-image: radial-gradient(circle at center, black 35%, transparent 82%);
-}
-
-@keyframes grid-pan {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(34px, 34px, 0);
-  }
-}
-
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -22px, 0);
-  }
-}
-
-@keyframes float-medium {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, 16px, 0);
-  }
-}
-
-@keyframes float-fast {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -12px, 0);
-  }
-}
-
-@keyframes drift-spin {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(8px, -10px, 0) rotate(7deg);
-  }
-}
-
-@keyframes sway-tilt {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(-2deg);
-  }
-  50% {
-    transform: translate3d(-10px, 6px, 0) rotate(3deg);
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 14s ease-in-out infinite;
-}
-
-.animate-float-medium {
-  animation: float-medium 10s ease-in-out infinite;
-}
-
-.animate-float-fast {
-  animation: float-fast 8s ease-in-out infinite;
-}
-
-.animate-drift-spin {
-  animation: drift-spin 11s ease-in-out infinite;
-}
-
-.animate-sway-tilt {
-  animation: sway-tilt 9s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body::before {
-    animation: none;
-  }
-
-  .animate-float-slow,
-  .animate-float-medium,
-  .animate-float-fast,
-  .animate-drift-spin,
-  .animate-sway-tilt {
-    animation: none;
-  }
+.dark ::selection {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }

@@ -9,37 +9,59 @@ type ThemeToggleProps = {
 };
 
 export default function ThemeToggle({ className }: ThemeToggleProps) {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const saved = localStorage.getItem("theme");
-    if (saved === "dark") {
+    // Default to dark mode unless explicitly set to light
+    const isDark = saved ? saved === "dark" : true;
+    setDark(isDark);
+    if (isDark) {
       document.documentElement.classList.add("dark");
-      setDark(true);
+    } else {
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
   const toggleTheme = () => {
     const root = document.documentElement;
+    const nextDark = !dark;
 
-    if (dark) {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
+    if (nextDark) {
       root.classList.add("dark");
       localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
 
-    setDark(!dark);
+    setDark(nextDark);
   };
+
+  if (!mounted) {
+    return (
+      <button
+        aria-label="Toggle Theme"
+        className={cn(
+          "rounded-full p-2 text-zinc-500 dark:text-zinc-400 transition",
+          className
+        )}
+      >
+        <FiSun />
+      </button>
+    );
+  }
 
   return (
     <button
       onClick={toggleTheme}
-      className={
-        className ||
-        "rounded-xl border border-[var(--surface-border)] bg-[var(--surface)] p-2 text-[var(--foreground)] hover:scale-105 transition"
-      }
+      aria-label="Toggle Theme"
+      className={cn(
+        "rounded-full p-2 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition",
+        className
+      )}
     >
       {dark ? <FiSun /> : <FiMoon />}
     </button>

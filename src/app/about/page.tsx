@@ -1,63 +1,128 @@
 "use client";
 
 import { motion } from "framer-motion";
-import AnimatedHeading from "@/components/ui/AnimatedHeading";
-import SectionContainer from "@/components/ui/SectionContainer";
-import { fadeInUp } from "@/components/ui/motion";
+import Link from "next/link";
+import { FiArrowUpRight, FiCheck } from "react-icons/fi";
+import { aboutParagraphs } from "@/data/content";
 
-export default function About() {
+const coreInterests = [
+  "Backend Engineering & Systems Architecture",
+  "API Design & Distributed Services",
+  "Data Structures, Algorithms & Scaling",
+  "DevOps, Docker & Cloud Infrastructure",
+  "Full-Stack Development with Next.js & TypeScript",
+];
+
+const educationDetails = {
+  degree: "Bachelor of Engineering in Information Technology",
+  institution: "Vidyalankar Institute of Technology, Mumbai",
+  focus: "Distributed Systems, Backend Architecture, Cloud Computing",
+};
+
+export default function AboutPage() {
   return (
-    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-      <AnimatedHeading
-        level="h1"
-        eyebrow="About"
-        title="Engineering With Clarity and Scale"
-        subtitle="I enjoy blending reliable backend architecture with playful user experiences."
-        gradientTitle
-        className="max-w-3xl"
-      />
-
+    <div className="min-h-screen px-6 sm:px-12 lg:px-20 pt-32 sm:pt-40 pb-24 max-w-6xl mx-auto">
+      {/* Header Section Marker */}
       <motion.div
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="relative mt-8 overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-6 shadow-[0_30px_68px_-50px_rgba(31,26,20,0.4)] sm:mt-10 sm:p-10 dark:shadow-none"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="flex items-center justify-between border-b border-black/[0.08] dark:border-white/[0.08] pb-6 mb-16"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:30px_30px]" />
-        <div className="pointer-events-none absolute -right-8 top-8 h-14 w-14 rounded-full border-2 border-dashed border-[#ff4f4f]/45 bg-[#ffe2df]/65 animate-float-slow dark:bg-[#ffe2df]/10" />
-        <div className="pointer-events-none absolute -left-5 bottom-8 h-12 w-12 rounded-xl border border-[var(--surface-border)] bg-[#ecfccb]/75 animate-drift-spin dark:bg-[#ecfccb]/10" />
-        <div className="relative z-10 grid gap-8 ">
-          <div className="space-y-4 text-sm leading-7 text-[var(--foreground)]/80 sm:space-y-5 sm:text-base sm:leading-8">
-            <p>
-              I am an Information Technology student at Vidyalankar Institute
-              of Technology, focused on building dependable products with clean
-              engineering fundamentals.
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+          01 // About &amp; Philosophy
+        </span>
+        <span className="font-mono text-xs text-zinc-400 dark:text-zinc-600">
+          MUMBAI, INDIA
+        </span>
+      </motion.div>
+
+      {/* Main Editorial Narrative Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        {/* Left: Large Architectural Statement */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 space-y-6"
+        >
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0a0a0a] dark:text-[#f2f2f2] leading-[1.05]">
+            Engineering with{" "}
+            <span className="text-zinc-400 dark:text-zinc-600 font-normal">clarity</span>,{" "}
+            <span className="text-zinc-400 dark:text-zinc-600 font-normal">scale</span>, and purpose.
+          </h1>
+          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
+            I focus on backend systems, clean API contracts, and scalable services that solve real-world problems reliably.
+          </p>
+        </motion.div>
+
+        {/* Right: Biography Paragraphs */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-7 space-y-8 text-base sm:text-lg text-zinc-700 dark:text-zinc-300 font-light leading-relaxed"
+        >
+          {aboutParagraphs.map((paragraph, idx) => (
+            <p key={idx} className="border-l border-black/10 dark:border-white/10 pl-6 hover:border-black/40 dark:hover:border-white/40 transition-colors duration-200">
+              {paragraph}
             </p>
-            <p>
-              My core interest is backend systems and scalable architecture. I
-              enjoy designing APIs, structuring services, and creating
-              cloud-ready systems that remain maintainable as they grow.
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Core Interests & Education (Typography & Spacing, No Cards) */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        className="mt-24 pt-16 border-t border-black/[0.08] dark:border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-12"
+      >
+        {/* Core Interests */}
+        <div className="md:col-span-7 space-y-6">
+          <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+            Core Engineering Interests
+          </span>
+          <ul className="space-y-3 font-mono text-xs sm:text-sm text-zinc-800 dark:text-zinc-300">
+            {coreInterests.map((interest) => (
+              <li key={interest} className="flex items-center gap-3">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black/[0.04] dark:bg-white/[0.04] text-zinc-600 dark:text-zinc-400">
+                  <FiCheck className="text-xs" />
+                </span>
+                <span>{interest}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Education Details */}
+        <div className="md:col-span-5 space-y-6">
+          <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+            Academic Background
+          </span>
+          <div className="space-y-2">
+            <h2 className="text-lg font-semibold text-black dark:text-white">
+              {educationDetails.degree}
+            </h2>
+            <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
+              {educationDetails.institution}
             </p>
-            <p>
-              I am continuously improving through Data Structures and
-              Algorithms, system design practice, and DevOps learning so I can
-              deliver complete solutions from development to deployment.
+            <p className="text-xs text-zinc-600 dark:text-zinc-500 pt-2 font-light">
+              Focus: {educationDetails.focus}
             </p>
           </div>
-          {/* <div className="grid gap-3 self-start sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-2xl border border-[#d8ccb8] bg-[#fff5e2] p-4">
-              <p className="text-xs uppercase tracking-[0.16em] text-[#a65713]">Current Focus</p>
-              <p className="mt-1 text-sm font-semibold text-[#1f1a14]">Cloud-native backend systems</p>
-            </div>
-            <div className="rounded-2xl border border-[#d8ccb8] bg-[#fff5e2] p-4">
-              <p className="text-xs uppercase tracking-[0.16em] text-[#a65713]">Workflow</p>
-              <p className="mt-1 text-sm font-semibold text-[#1f1a14]">Design, build, test, ship</p>
-            </div>
-          </div> */}
+
+          <div className="pt-6">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 font-mono text-xs text-black dark:text-white hover:underline transition"
+            >
+              <span>Explore Projects</span>
+              <FiArrowUpRight />
+            </Link>
+          </div>
         </div>
       </motion.div>
-    </SectionContainer>
+    </div>
   );
 }
-

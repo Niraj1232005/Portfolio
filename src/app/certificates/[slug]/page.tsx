@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
-import SectionContainer from "@/components/ui/SectionContainer";
 import { certificates } from "@/data/content";
 
 type Props = {
@@ -14,53 +13,58 @@ export default async function CertificatePage({ params }: Props) {
 
   if (!cert) {
     return (
-      <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-        <div className="mx-auto max-w-xl rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)] p-10 text-center shadow-[0_26px_52px_-36px_rgba(31,26,20,0.35)] dark:shadow-none">
-          <p className="text-lg text-[var(--foreground)]">Certificate not found.</p>
-          <Link
-            href="/certificates"
-            className="mt-6 inline-flex items-center gap-2 text-sm text-[var(--foreground)]/80 transition hover:text-[#ff7a1a]"
-          >
-            <FiArrowLeft />
-            Back to certificates
-          </Link>
-        </div>
-      </SectionContainer>
+      <div className="min-h-screen px-6 sm:px-12 lg:px-20 pt-36 pb-24 max-w-4xl mx-auto text-center space-y-6">
+        <p className="text-xl font-light text-zinc-600 dark:text-zinc-400">
+          Certificate not found.
+        </p>
+        <Link
+          href="/certificates"
+          className="inline-flex items-center gap-2 font-mono text-xs text-black dark:text-white hover:underline"
+        >
+          <FiArrowLeft />
+          <span>Back to certificates</span>
+        </Link>
+      </div>
     );
   }
 
   return (
-    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-      <div className="mx-auto max-w-5xl">
-        <Link
-          href="/certificates"
-          className="inline-flex items-center gap-2 text-sm text-[var(--foreground)]/80 transition hover:text-[#ff7a1a]"
-        >
-          <FiArrowLeft />
-          Back to certificates
-        </Link>
+    <div className="min-h-screen px-6 sm:px-12 lg:px-20 pt-32 sm:pt-40 pb-24 max-w-5xl mx-auto">
+      {/* Back Navigation Link */}
+      <Link
+        href="/certificates"
+        className="group inline-flex items-center gap-2 font-mono text-xs text-zinc-500 hover:text-black dark:hover:text-white transition mb-12"
+      >
+        <FiArrowLeft className="transition-transform group-hover:-translate-x-1" />
+        <span>Back to all certificates</span>
+      </Link>
 
-        <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-4 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8 dark:shadow-none">
-          <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:32px_32px]" />
-          <h1 className="relative z-10 bg-gradient-to-r from-[var(--foreground)] via-[#ff7a1a] to-[#ff4f4f] bg-clip-text text-3xl font-semibold tracking-tight text-transparent sm:text-4xl">
-            {cert.title}
-          </h1>
-          <p className="relative z-10 mt-2 text-sm text-[var(--foreground)]/80">{cert.issuer}</p>
+      {/* Header Info */}
+      <div className="border-b border-black/[0.08] dark:border-white/[0.08] pb-6 mb-8 space-y-2">
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+          Credential Verification
+        </span>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black dark:text-white">
+          {cert.title}
+        </h1>
+        <p className="font-mono text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+          Issuer: {cert.issuer}
+        </p>
+      </div>
 
-          <div className="relative z-10 mt-6 overflow-hidden rounded-3xl border border-[var(--surface-border)] bg-[var(--surface)]">
-            <Image
-              src={cert.image}
-              alt={cert.title}
-              width={1600}
-              height={980}
-              className="w-full object-cover"
-              priority
-            />
-          </div>
-
-          {/* <CopyCertificateUrl slug={cert.slug} /> */}
+      {/* Certificate Image Frame */}
+      <div className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#0c0c0e] p-3 sm:p-4 shadow-sm dark:shadow-none">
+        <div className="relative aspect-[16/11] w-full overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-950">
+          <Image
+            src={cert.image}
+            alt={cert.title}
+            fill
+            sizes="100vw"
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
-    </SectionContainer>
+    </div>
   );
 }

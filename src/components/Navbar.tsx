@@ -3,15 +3,14 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import {
   FiAward,
   FiCode,
+  FiFileText,
   FiFolder,
   FiHome,
-  FiMail,
   FiUser,
 } from "react-icons/fi";
 import { cn } from "@/lib/cn";
@@ -20,6 +19,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+
   const navItems = [
     { href: "/?intro=0", matchPath: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -27,17 +27,17 @@ export default function Navbar() {
     { href: "/skills", label: "Skills" },
     { href: "/certificates", label: "Certificates" },
   ];
+
   const mobileNavItems = [
     { href: "/?intro=1", matchPath: "/", label: "Home", icon: FiHome },
     { href: "/about", label: "About", icon: FiUser },
     { href: "/projects", label: "Projects", icon: FiFolder },
     { href: "/skills", label: "Skills", icon: FiCode },
     { href: "/certificates", label: "Certificates", icon: FiAward },
-    { href: "/contact", label: "Contact", icon: FiMail },
   ];
 
   const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
+    if (href === "/" || href === "/?intro=0") return pathname === "/";
     return pathname.startsWith(href);
   };
 
@@ -59,81 +59,110 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-4 z-50 hidden justify-center px-4 md:flex">
-        <div className="flex w-full max-w-6xl items-center justify-between rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)]/88 px-4 py-2.5 shadow-[0_22px_58px_-38px_rgba(31,26,20,0.45)] dark:shadow-none backdrop-blur sm:px-6">
+      {/* Desktop Global Navbar */}
+      <header className="fixed inset-x-0 top-0 z-50 hidden justify-center px-6 pt-5 md:flex pointer-events-none">
+        <div className="pointer-events-auto flex w-full max-w-5xl items-center justify-between px-6 py-2.5 transition-all duration-300 rounded-full border border-black/10 dark:border-white/[0.08] bg-white/80 dark:bg-[#070707]/85 backdrop-blur-xl shadow-sm dark:shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
           <Link href="/?intro=1" className="group flex items-center gap-3">
-            <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface-border)]/30 transition group-hover:-rotate-6 group-hover:scale-105">
-              <Image src="/logo_new.png" alt="NR logo" width={24} height={24} />
+            <span className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.03] transition duration-300 group-hover:border-black/40 dark:group-hover:border-white/40">
+              <Image src="/logo_new.png" alt="NR logo" width={20} height={20} className="opacity-90" />
             </span>
-            <span className="hidden text-sm font-semibold tracking-wide text-[var(--foreground)] sm:inline">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] font-medium text-zinc-800 dark:text-zinc-300 group-hover:text-black dark:group-hover:text-white transition duration-300">
               Niraj Rathod
             </span>
           </Link>
 
           <nav>
-            <ul className="flex items-center gap-1.5 text-sm">
-              {navItems.map((item) => (
-                <motion.li key={item.href} whileHover={{ y: -2 }}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "rounded-xl border border-transparent px-3 py-2 transition duration-200",
-                      isActive(item.matchPath ?? item.href)
-                        ? "border-[#ff7a1a]/45 bg-[var(--surface-border)]/30 text-[var(--foreground)] shadow-[0_18px_36px_-24px_rgba(255,122,26,0.65)] dark:shadow-[0_18px_36px_-24px_rgba(255,122,26,0.2)]"
-                        : "text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.li>
-              ))}
-              <li className="ml-1">
-                <Link
-                  href="/contact"
-                  className="rounded-xl bg-gradient-to-r from-[#ff7a1a] via-[#ff9f1c] to-[#ff4f4f] px-4 py-2 font-medium text-[var(--foreground)] transition hover:translate-y-[-1px] hover:shadow-[0_18px_36px_-24px_rgba(255,79,79,0.7)] dark:hover:shadow-[0_18px_36px_-24px_rgba(255,79,79,0.3)]"
+            <ul className="flex items-center gap-1 text-xs font-mono">
+              {navItems.map((item) => {
+                const active = isActive(item.matchPath ?? item.href);
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "relative px-3 py-1.5 transition-colors duration-200 tracking-wider",
+                        active
+                          ? "text-black dark:text-white font-medium"
+                          : "text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-zinc-100",
+                      )}
+                    >
+                      {item.label}
+                      {active && (
+                        <motion.span
+                          layoutId="navbar-indicator"
+                          className="absolute -bottom-1 left-3 right-3 h-[1.5px] bg-black/70 dark:bg-white/70"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
+
+              {/* Standout Global Resume Action Button */}
+              <li className="ml-3 pl-3 border-l border-black/10 dark:border-white/[0.08]">
+                <a
+                  href="/nirajrathod_resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition duration-200 font-mono tracking-wider bg-black text-white dark:bg-white dark:text-black hover:opacity-85 shadow-sm"
                 >
-                  Contact
-                </Link>
+                  <FiFileText className="text-xs" />
+                  <span>Resume</span>
+                </a>
               </li>
+
               {/* Theme Toggle */}
-              <li className="ml-2">
-                <ThemeToggle />
+              <li className="ml-1.5">
+                <ThemeToggle className="rounded-full p-1.5 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition" />
               </li>
             </ul>
           </nav>
         </div>
       </header>
 
-      <nav className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 md:hidden">
-        <ul className="flex items-center gap-1 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)]/92 p-1.5 shadow-[0_22px_50px_-28px_rgba(31,26,20,0.45)] dark:shadow-none backdrop-blur">
+      {/* Mobile Global Navigation Bar */}
+      <nav className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 md:hidden">
+        <ul className="flex items-center gap-1 rounded-full p-2 backdrop-blur-2xl border border-black/10 dark:border-white/10 bg-white/90 dark:bg-[#070707]/90 shadow-[0_15px_35px_rgba(0,0,0,0.12)] dark:shadow-[0_15px_35px_rgba(0,0,0,0.8)]">
           {mobileNavItems.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.matchPath ?? item.href);
 
             return (
               <li key={item.href}>
-                <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.94 }}>
-                  <Link
-                    href={item.href}
-                    aria-label={item.label}
-                    className={cn(
-                      "grid h-10 w-10 place-content-center rounded-xl border border-transparent text-base transition",
-                      active
-                        ? "bg-gradient-to-r from-[#ff7a1a] to-[#ff4f4f] text-[var(--foreground)] shadow-[0_14px_28px_-20px_rgba(255,79,79,0.75)] dark:shadow-[0_14px_28px_-20px_rgba(255,79,79,0.2)]"
-                        : "text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]",
-                    )}
-                  >
-                    <Icon />
-                    <span className="sr-only">{item.label}</span>
-                  </Link>
-                </motion.div>
+                <Link
+                  href={item.href}
+                  aria-label={item.label}
+                  className={cn(
+                    "grid h-10 w-10 place-content-center rounded-full text-base transition duration-200",
+                    active
+                      ? "bg-black text-white dark:bg-white dark:text-black font-semibold"
+                      : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white",
+                  )}
+                >
+                  <Icon />
+                  <span className="sr-only">{item.label}</span>
+                </Link>
               </li>
             );
           })}
+
+          {/* Mobile Resume Link */}
           <li>
-            <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.94 }}>
-              <ThemeToggle className="grid h-10 w-10 place-content-center rounded-xl border border-transparent text-base transition text-[var(--foreground)]/70 hover:border-[var(--surface-border)] hover:bg-[var(--surface-border)]/30 hover:text-[var(--foreground)]" />
-            </motion.div>
+            <a
+              href="/nirajrathod_resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Resume"
+              className="grid h-10 w-10 place-content-center rounded-full text-base text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition"
+            >
+              <FiFileText />
+              <span className="sr-only">Resume</span>
+            </a>
+          </li>
+
+          <li>
+            <ThemeToggle className="grid h-10 w-10 place-content-center rounded-full text-base transition text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white" />
           </li>
         </ul>
       </nav>

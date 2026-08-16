@@ -1,68 +1,80 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
-import AnimatedHeading from "@/components/ui/AnimatedHeading";
-import Card from "@/components/ui/Card";
-import SectionContainer from "@/components/ui/SectionContainer";
-import { fadeInUp } from "@/components/ui/motion";
+import Link from "next/link";
+import { FiArrowUpRight, FiAward } from "react-icons/fi";
 import { certificates } from "@/data/content";
 
-export default function Certificates() {
+export default function CertificatesPage() {
   return (
-    <SectionContainer className="pb-12 pt-16 sm:pb-16 sm:pt-24 md:pt-28">
-      <div className="relative overflow-hidden rounded-[2rem] border border-[var(--surface-border)] bg-[var(--surface)]/95 p-5 shadow-[0_28px_68px_-50px_rgba(31,26,20,0.4)] sm:p-8 dark:shadow-none">
-        <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:linear-gradient(var(--grid)_1px,transparent_1px),linear-gradient(90deg,var(--grid)_1px,transparent_1px)] [background-size:32px_32px]" />
-        <AnimatedHeading
-          level="h1"
-          eyebrow="Certificates"
-          title="Verified Learning Milestones"
-          subtitle="Professional certificates that validate cloud, frontend, and modern development knowledge."
-          gradientTitle
-          className="relative z-10 max-w-3xl"
-        />
+    <div className="min-h-screen px-6 sm:px-12 lg:px-20 pt-32 sm:pt-40 pb-24 max-w-6xl mx-auto">
+      {/* Header Section Marker */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="flex items-center justify-between border-b border-black/[0.08] dark:border-white/[0.08] pb-6 mb-16"
+      >
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500">
+          04 // Certifications Archive ({certificates.length})
+        </span>
+        <span className="font-mono text-xs text-zinc-400 dark:text-zinc-600">
+          CREDENTIALS &amp; SPECIALIZATIONS
+        </span>
+      </motion.div>
 
-        <div className="relative z-10 mt-8 grid gap-6 sm:mt-10 md:grid-cols-2 xl:grid-cols-3">
-          {certificates.map((certificate, index) => (
-            <motion.div
-              key={certificate.slug}
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.22 }}
-              transition={{ delay: index * 0.07 }}
+      {/* Editorial Heading Statement */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="max-w-2xl mb-14 space-y-4"
+      >
+        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0a0a0a] dark:text-[#f2f2f2]">
+          Validated Milestones
+        </h1>
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 font-light leading-relaxed">
+          Professional certificates validating knowledge in cloud computing, blockchain systems, and computer architecture.
+        </p>
+      </motion.div>
+
+      {/* Clean Chronological / Editorial Timeline List */}
+      <div className="divide-y divide-black/[0.06] dark:divide-white/[0.06] border-y border-black/[0.06] dark:border-white/[0.06]">
+        {certificates.map((cert, idx) => (
+          <motion.div
+            key={cert.slug}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Link
+              href={`/certificates/${cert.slug}`}
+              className="group py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-4 rounded-xl transition duration-200"
             >
-              <Card className="h-full">
-                <div className="overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)]">
-                  <Image
-                    src={certificate.image}
-                    alt={certificate.title}
-                    width={540}
-                    height={320}
-                    className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
+              <div className="flex items-start sm:items-center gap-6">
+                <span className="font-mono text-sm tracking-widest text-zinc-400 dark:text-zinc-600 group-hover:text-black dark:group-hover:text-white transition">
+                  0{idx + 1}
+                </span>
+                <div>
+                  <h2 className="text-lg sm:text-xl font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-black dark:group-hover:text-white transition">
+                    {cert.title}
+                  </h2>
+                  <p className="mt-1 font-mono text-xs text-zinc-500 flex items-center gap-2">
+                    <FiAward className="text-xs" />
+                    <span>{cert.issuer}</span>
+                  </p>
                 </div>
+              </div>
 
-                <h2 className="mt-5 text-lg font-semibold text-[var(--foreground)]">
-                  {certificate.title}
-                </h2>
-                <p className="mt-2 text-sm text-[var(--foreground)]/80">{certificate.issuer}</p>
-
-                <Link
-                  href={`/certificates/${certificate.slug}`}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm text-[var(--foreground)]/80 transition hover:text-[#ff7a1a]"
-                >
-                  View credential
-                  <FiArrowRight />
-                </Link>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+              <div className="flex items-center gap-2 font-mono text-xs text-zinc-500 group-hover:text-black dark:group-hover:text-white transition self-end sm:self-auto">
+                <span>View &amp; Verify</span>
+                <FiArrowUpRight className="text-sm transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+            </Link>
+          </motion.div>
+        ))}
       </div>
-    </SectionContainer>
+    </div>
   );
 }
-
